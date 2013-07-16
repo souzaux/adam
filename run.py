@@ -7,7 +7,9 @@ import os
 
 class Auth(BasicAuth):
     def check_auth(self, username, password, allowed_roles, resource):
-        return username == 'admin' and password == 'secret'
+        user = os.environ.get('AUTH_USERNAME')
+        pw = os.environ.get('AUTH_PASSWORD')
+        return username == user and password == pw
 
 
 app = Eve(auth=Auth)
