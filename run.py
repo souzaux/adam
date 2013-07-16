@@ -15,8 +15,8 @@ import os
 
 class Auth(BasicAuth):
     def check_auth(self, username, password, allowed_roles, resource):
-        user = os.environ.get('AUTH_USERNAME')
-        pw = os.environ.get('AUTH_PASSWORD')
+        user = os.environ.get('AUTH_USERNAME', 'username')
+        pw = os.environ.get('AUTH_PASSWORD', 'password')
         return username == user and password == pw
 
 
