@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+    adam.run.py
+    ~~~~~~~~~~~
 
+    The API launch script.
+
+    :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
+    :license: BSD, see LICENSE for more details.
+"""
 from eve import Eve
 from eve.auth import BasicAuth
 import os
