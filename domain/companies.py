@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-
 """
-    definition
-    ~~~~~~~~~
+    adam.domain.companies.py
+    ~~~~~~~~~~~~~~~~~~~~~~~~
 
-    blah
+    'companies' resource and schema settings.
 
+    :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
+    :license: BSD, see LICENSE for more details.
 """
-
 import common
 
 _schema = {
@@ -23,7 +23,7 @@ _schema = {
 _schema.update(common.schema)
 
 definition = {
-    'url': 'definition',                      # defaults to resource key
+    'url': 'companies',
     'item_title': 'company',
     'additional_lookup': common.company_lookup,
     'schema': _schema,
