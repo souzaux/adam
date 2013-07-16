@@ -1,123 +1,31 @@
+# -*- coding: utf-8 -*-
 """
-    eve.settings
-    ~~~~~~~~~~~~
+    adam.settings
+    ~~~~~~~~~~~~~
 
-    Default API settings. These can be overridden by editing this file or, more
-    appropriately, by using a custom settings module (see the optional
-    'settings' argument or the EVE_SETTING environment variable).
-
-    :copyright: (c) 2012 by Nicola Iarocci.
+    :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-MONGO_HOST = 'ds035338.mongolab.com'
-MONGO_PORT = 35338
-MONGO_USERNAME = 'test'
-MONGO_PASSWORD = 'test'
-MONGO_DBNAME = 'heroku_app16785065'
-SERVER_NAME = 'amica-test.herokuapp.com'
+import os
+import domain
 
-RESOURCE_METHODS = ['GET', 'POST']               # defauts to GET
-ITEM_METHODS = ['GET', 'PATCH', 'DELETE']       # defaults to GET
+# Sensible settings are retrieved from environment variables when available in
+# the hosting environment (Heroku), or set to default values for local testing.
+MONGO_HOST = os.environ.get('MONGO_HOST', 'localhost')
+MONGO_PORT = int(os.environ.get('MONGO_PORT', 27017))
+MONGO_USERNAME = os.environ.get('MONGO_USERNAME', 'test')
+MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD', 'test')
+MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'adam-test')
+SERVER_NAME = os.environ.get('SERVER_NAME', '127.0.0.1:5000')
 
-contacts = {
-    'url': 'contatti',                      # defaults to resource key
-    #'write_concern': {'w': 2},
-    'extra_response_fields': ['token'],
-    'cache_control': 'max-age=20,must-revalidate',
-    'cache_expires': 20,
-    'allowed_roles': ['admin'],
-    'item_title': 'contatto',
-    'additional_lookup': {
-        'url': '[\w]+',   # to be unique field
-        'field': 'name'
-    },
-    #'datasource': {'filter': {'username': {'$exists': False}}},
-    'schema': {
-        'active_list': {
-            'type': 'list',
-            'schema': {
-                'type': 'dict',
-                'schema': {
-                    'p_id': {
-                        'type': 'objectid',
-                        'required': True,
-                        'data_relation': {
-                            'collection': 'users'
-                        }
-                    },
-                    'proj_name': {
-                        'type': 'string',
-                    },
-                    'perma_name': {
-                        'type': 'string',
-                    },
-                    'raised': {
-                        'type': 'integer',
-                    },
-                    'goal': {
-                        'type': 'integer',
-                    },
-                    'description': {
-                        'type': 'string',
-                    }
-                }
-            }
-        },
-        'test': {
-            'type': 'string',
-            'default': 'i am a default value',
-        },
-        'name': {
-            'type': 'string',
-            'minlength': 2,
-            #'maxlength': 5,
-            'unique': True,
-        },
-        'role': {
-            'type': 'list',
-            'allowed': ["agent", "client", "vendor"],
-        },
-        'rows': {
-            #'readonly': True,
-            'type': 'list',
-            'schema': {
-                'type': 'dict',
-                'schema': {
-                    'sku': {'type': 'string'},
-                    'price': {'type': 'integer', 'default': 10},
-                },
-            }
-        },
-        'alist': {
-            #'readonly': True,
-            'type': 'list',
-            'items': [{'type': 'string'}, {'type': 'integer'}, ]
-        },
-        'location': {
-            'type': 'dict',
-            'schema': {
-                'address': {'type': 'string'},
-                'city': {'type': 'string', 'required': True}
-            },
-        },
-        'born': {
-            'type': 'datetime',
-        },
-        'cin': {
-            'type': 'string',
-            'cin': True,
-        },
-        'test': {
-            'type': 'objectid',
-            'data_relation': {
-                'collection': 'invoices',
-                'field': '_id'
-            },
-        }
-    }
-}
+# Allow full range of CRUD operations on resources and items
+RESOURCE_METHODS = ['GET', 'POST']
+ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
 
+# Enable 'User Restricted Resource Access' (see
+# http://python-eve.org/authentication.html#user-restricted.) This will allow
+# accounts to only edit/retrieve data created by themselves.
+AUTH_USERNAME_FIELD = domain.account['key']
 
-DOMAIN = {
-    'contacts': contacts,
-}
+# Set the API domain
+DOMAIN = domain.DOMAIN
