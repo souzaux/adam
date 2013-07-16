@@ -15,7 +15,7 @@ class Auth(BasicAuth):
 app = Eve(auth=Auth)
 
 if __name__ == '__main__':
-    # Heroku support: bind to PORT if defined, otherwise default to 5000.
-    port = int(os.environ.get('PORT', 5000))
-    app.config['DEBUG'] = True if port == 5000 else False
-    app.run(port=port)
+    # Heroku defines a $PORT environment variable, which we use to determine
+    # if we're running locally or not.
+    host = '0.0.0.0' if os.environ.get('PORT') else None
+    app.run(host=host, port=int(os.environ.get('PORT', 5000)))
