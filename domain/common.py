@@ -1,35 +1,43 @@
 # -*- coding: utf-8 -*-
-
 """
-    common.py
-    ~~~~~~~~~
+    adam.domain.common.py
+    ~~~~~~~~~~~~~~~~~~~~~
 
-    Commonly used schema definitions.
+    Commonly used schema and domain definitions.
+
+    :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
+    :license: BSD, see LICENSE for more details.
 """
-
-
-# schema fields
-company_id = {
-    'type': 'integer',
-    'required': True,
+# common fields
+company = {
+    'definition': {
+        'type': 'integer',
+        'required': True,
+    },
+    'key': 'c',
 }
-
 account = {
-    'type': 'string',
-    # automatically handled but let's make sure it's always there
-    'required': True,
+    'definition': {
+        'type': 'string',
+        # automatically handled but let's make sure it's always there
+        'required': True,
+    },
+    'key': 'a',
 }
 
-# commonly used resource definitions
+# common resource settings
 company_lookup = {
-    'url': '^([1-9][0-9]*)$',   # to be unique field
-    'field': 'c'
+    'url': '^([1-9][0-9]*)$',   # to be unique
+    'field': company['key']
 }
 
+# most resources share the following settings
 base = {
-    'auth_username_field': 'a',
+    'auth_username_field': account['key']
 }
+
+# most collections share the following schema definition
 schema = {
-    'c': company_id,
-    'a': account,
+    company['key']: company['definition'],
+    account['key']: account['definition'],
 }
