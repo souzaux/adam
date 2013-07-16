@@ -15,9 +15,7 @@ class Auth(BasicAuth):
 app = Eve(auth=Auth)
 
 if __name__ == '__main__':
-    app.config['DEBUG'] = True \
-        if app.config['SERVER_NAME'] == '127.0.0.1' else False
-
     # Heroku support: bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
+    app.config['DEBUG'] = True if port == 5000 else False
     app.run(port=port)
