@@ -27,15 +27,30 @@ class Auth(BasicAuth):
     http://python-eve.org/authentication.html
     """
     def check_auth(self, username, password, allowed_roles, resource):
-        user = os.environ.get('AUTH_USERNAME', 'username')
-        pw = os.environ.get('AUTH_PASSWORD', 'password')
+        if os.environ.get('PORT'):
+            # We're hosted on heroku. Retrieve the valid user/pw pair from the
+            # environment
+            user = os.environ['AUTH_USERNAME']
+            pw = os.environ['AUTH_PASSWORD']
+        else:
+            # We're running on a local environment, probably for testing
+            # purposes. Allow for a trivial user/pw pair.
+            user = 'username'
+            pw = 'password'
         return username == user and password == pw
 
 
 app = Eve(auth=Auth)
 
+# Heroku defines a $PORT environment variable that we use to determine
+# if we're running locally or not.
+port = os.environ.get('PORT')
+if port:
+    host = '0.0.0.0'
+    port = int(port)
+else:
+    host = None
+    port = 5000
+
 if __name__ == '__main__':
-    # Heroku defines a $PORT environment variable, which we use to determine
-    # if we're running locally or not.
-    host = '0.0.0.0' if os.environ.get('PORT') else None
-    app.run(host=host, port=int(os.environ.get('PORT', 5000)))
+    app.run(host=host, port=port)
