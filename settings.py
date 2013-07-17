@@ -13,9 +13,9 @@ import domain
 # the hosting environment (Heroku), or set to default values for local testing.
 MONGO_HOST = os.environ.get('MONGO_HOST', 'localhost')
 MONGO_PORT = int(os.environ.get('MONGO_PORT', 27017))
-MONGO_USERNAME = os.environ.get('MONGO_USERNAME', 'test')
-MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD', 'test')
-MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'adam-test')
+MONGO_USERNAME = os.environ.get('MONGO_USERNAME', 'user')
+MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD', 'user')
+MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'adamtest')
 SERVER_NAME = os.environ.get('SERVER_NAME', '127.0.0.1:5000')
 
 # $PORT is defined if we are hosted on Heroku
