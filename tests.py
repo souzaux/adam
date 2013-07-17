@@ -6,14 +6,14 @@
     Just providing code coverage for Adam's own functionality. Eve's rich
     test suite takes care of all the API logic.
 
-    For launching the suite, just run: `python -m unittest tests`.
+    For launching the suite just run: `python -m unittest tests`.
 
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-import unittest
-import run
 import os
+import run
+import unittest
 from eve import Eve
 
 
@@ -66,7 +66,6 @@ class TestHost(TestBase):
     def test_heroku_host(self):
         os.environ['PORT'] = '12345'
         reload(run)
-        self.assertTrue(type(run.app) is Eve)
         self.assertTrue(run.host == '0.0.0.0')
         self.assertTrue(run.port == 12345)
 
