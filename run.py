@@ -14,6 +14,18 @@ import os
 
 
 class Auth(BasicAuth):
+    """ This class implements Basic Authentication for our API endpoints. Since
+    the API itself is going to be on SSL, we're fine with BA. Also, in our use
+    case, API clients will be mobile and web apps that we directly control so,
+    for the time being, a single user/pw pair will do.
+
+    The nice thing about having a custom proprietary class for auth handling
+    is that we can always add complexity later, as the need arises, without
+    touching the API configuration itself.
+
+    For details on Eve authentication handling see:
+    http://python-eve.org/authentication.html
+    """
     def check_auth(self, username, password, allowed_roles, resource):
         user = os.environ.get('AUTH_USERNAME', 'username')
         pw = os.environ.get('AUTH_PASSWORD', 'password')
