@@ -19,7 +19,7 @@ MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'adamtest')
 SERVER_NAME = os.environ.get('SERVER_NAME', '127.0.0.1:5000')
 
 # $PORT is defined if we are hosted on Heroku
-if os.environ.get('PORT'):
+if os.environ.get('PORT') is None:
     DEBUG = True
 
 # Allow full range of CRUD operations on resources and items
