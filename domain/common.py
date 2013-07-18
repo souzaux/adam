@@ -36,6 +36,8 @@ integer = {
     'type': 'integer',
     'required': True,
 }
+unique_integer = integer.copy()
+unique_integer['unique'] = True
 
 # common resource settings
 company_lookup = {
