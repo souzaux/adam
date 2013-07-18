@@ -15,6 +15,10 @@ company = {
     'definition': {
         'type': 'integer',
         'required': True,
+        'data_relation': {
+            'collection': 'companies',
+            'field': companyid_key,
+        }
     },
     'key': 'c',
 }
