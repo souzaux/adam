@@ -31,6 +31,12 @@ account = {
     'key': 'a',
 }
 
+# common types
+integer = {
+    'type': 'integer',
+    'required': True,
+}
+
 # common resource settings
 company_lookup = {
     'url': '^([1-9][0-9]*)$',   # to be unique
