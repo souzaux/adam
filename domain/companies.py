@@ -10,7 +10,11 @@
 """
 import common
 
+
 _schema = {
+    # company id ('id')
+    common.companyid_key: common.integer,
+    common.account['key']: common.account['definition'],
     # name
     'n': {
         'type': 'string',
@@ -20,7 +24,6 @@ _schema = {
         'type': 'string',
     },
 }
-_schema.update(common.schema)
 
 definition = {
     'url': 'companies',
