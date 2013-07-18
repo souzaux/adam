@@ -8,6 +8,8 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
+companyid_key = 'id'
+
 # common fields
 company = {
     'definition': {
