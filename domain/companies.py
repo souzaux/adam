@@ -13,7 +13,7 @@ import common
 
 _schema = {
     # company id ('id')
-    common.companyid_key: common.integer,
+    common.companyid_key: common.unique_integer,
     common.account['key']: common.account['definition'],
     # name
     'n': {
