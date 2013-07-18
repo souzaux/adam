@@ -9,8 +9,10 @@
     :license: BSD, see LICENSE for more details.
 """
 import companies
+import dashboard
 from common import account  # noqa (will raise W0611 on pyflakes)
 
 DOMAIN = {
     'companies': companies.definition,
+    'dashboard': dashboard.definition,
 }
