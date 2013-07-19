@@ -29,7 +29,7 @@ ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
 # Enable 'User Restricted Resource Access' (see
 # http://python-eve.org/authentication.html#user-restricted.) This will allow
 # accounts to only edit/retrieve data created by themselves.
-AUTH_USERNAME_FIELD = domain.account['key']
+AUTH_USERNAME_FIELD = domain.account_key
 
 # Set the API domain
 DOMAIN = domain.DOMAIN

@@ -8,7 +8,7 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-import common
+from common import required_integer, company_lookup, base_def, base_schema
 
 _meta = {
     'b': {
@@ -28,20 +28,20 @@ _meta = {
 }
 
 _schema = {
-    'b': _meta,                 # billed
-    'o': _meta,                 # orders
+    'b': _meta,                         # billed
+    'o': _meta,                         # orders
     'p': {
-        'd': common.integer,    # due
-        'o': common.integer,    # overdue
-        'r': _meta,             # received
+        'd': required_integer,    # due
+        'o': required_integer,    # overdue
+        'r': _meta,                     # received
     },
 }
-_schema.update(common.schema)
+_schema.update(base_schema)
 
 definition = {
     'url': 'dashboard',
     'item_title': 'dashboard',
-    'additional_lookup': common.company_lookup,
+    'additional_lookup': company_lookup,
     'schema': _schema,
 }
-definition.update(common.base)
+definition.update(base_def)

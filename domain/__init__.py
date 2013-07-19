@@ -10,7 +10,7 @@
 """
 import companies
 import dashboard
-from common import account  # noqa (will raise W0611 on pyflakes)
+from common import account, account_key  # noqa (will raise W0611 on pyflakes)
 
 DOMAIN = {
     'companies': companies.definition,

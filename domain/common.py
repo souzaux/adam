@@ -9,49 +9,42 @@
     :license: BSD, see LICENSE for more details.
 """
 companyid_key = 'id'
+company_key = 'c'
+account_key = 'a'
+
+# common types
+required_integer = {'type': 'integer', 'required': True}
+unique_integer = required_integer.copy()
+unique_integer['unique'] = True
+
+required_string = {'type': 'string', 'required': True}
+unique_string = required_string.copy()
+unique_string['unique'] = True
 
 # common fields
 company = {
-    'definition': {
-        'type': 'integer',
-        'required': True,
-        'data_relation': {
-            'collection': 'companies',
-            'field': companyid_key,
-        }
-    },
-    'key': 'c',
-}
-account = {
-    'definition': {
-        'type': 'string',
-        # automatically handled but let's make sure it's always there
-        'required': True,
-    },
-    'key': 'a',
-}
-
-# common types
-integer = {
     'type': 'integer',
     'required': True,
+    'data_relation': {
+        'collection': 'companies',
+        'field': companyid_key,
+    },
 }
-unique_integer = integer.copy()
-unique_integer['unique'] = True
+account = required_string
 
 # common resource settings
 company_lookup = {
     'url': '^([1-9][0-9]*)$',   # to be unique
-    'field': company['key']
+    'field': company_key
 }
 
 # most resources share the following settings
-base = {
-    'auth_username_field': account['key']
+base_def = {
+    'auth_username_field': account_key
 }
 
 # most collections share the following schema definition
-schema = {
-    company['key']: company['definition'],
-    account['key']: account['definition'],
+base_schema = {
+    company_key: company,
+    account_key: account,
 }
