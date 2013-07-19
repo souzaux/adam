@@ -10,9 +10,11 @@
 """
 import companies
 import dashboard
+import accounts
 from common import account, account_key  # noqa (will raise W0611 on pyflakes)
 
 DOMAIN = {
     'companies': companies.definition,
     'dashboard': dashboard.definition,
+    'accounts': accounts.definition,
 }
