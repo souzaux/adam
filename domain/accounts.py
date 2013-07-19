@@ -25,6 +25,8 @@ definition = {
     'url': 'accounts',
     'item_title': 'account',
     'allowed_roles': ['admin', 'app'],
+    'cache_control': '',
+    'cache_expires': 0,
     'additional_lookup': {
         'url': '[\w]+',     # to be unique
         'field': 'u'
