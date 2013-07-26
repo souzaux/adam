@@ -9,36 +9,25 @@
     :license: BSD, see LICENSE for more details.
 """
 from eve import Eve
-from eve.auth import BasicAuth
+from eve.auth import TokenAuth
 import os
 
 
-class Auth(BasicAuth):
-    """ This class implements Basic Authentication for our API endpoints. Since
-    the API itself is going to be on SSL, we're fine with BA. Also,
-    for the time being a single user/pw pair will do.
-
-    The nice thing about having a custom proprietary class for auth handling
-    is that we can always add complexity later, as the need arises, without
-    touching the API configuration itself.
+class Auth(TokenAuth):
+    """ This class implements Token Based Authentication for our API
+    endpoints. Since the API itself is going to be on SSL, we're fine with this
+    variation of Basic Authentication.
 
     For details on Eve authentication handling see:
     http://python-eve.org/authentication.html
     """
-    def check_auth(self, username, password, allowed_roles, resource):
-        # TODO proper handling of user accounts
-        if os.environ.get('PORT'):
-            # We're hosted on heroku. Retrieve the valid user/pw pair from the
-            # environment
-            user = os.environ['AUTH_USERNAME']
-            pw = os.environ['AUTH_PASSWORD']
-        else:
-            # We're running on a local environment, probably for testing
-            # purposes. Allow for a trivial user/pw pair.
-            user = 'username'
-            pw = 'password'
-        return username == user and password == pw
-
+    def check_auth(self, token, allowed_roles, resource):
+        accounts = app.data.driver.db['accounts']
+        lookup = {'t': token}
+        if allowed_roles:
+            # only retrieve a user if his roles match ``allowed_roles``
+            lookup['r'] = {'$in': allowed_roles}
+        return accounts.find_one(lookup) is not None
 
 app = Eve(auth=Auth)
 
