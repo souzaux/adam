@@ -24,6 +24,7 @@ _schema = {
 definition = {
     'url': 'accounts',
     'item_title': 'account',
+    # only admins and apps are allowed to consume this endpoint.
     'allowed_roles': ['admin', 'app'],
     'cache_control': '',
     'cache_expires': 0,
