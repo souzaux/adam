@@ -1,1 +1,1 @@
-Eve==0.0.7
+-e git+https://github.com/nicolaiarocci/eve.git#egg=eve-dev
