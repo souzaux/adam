@@ -8,12 +8,12 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from common import companyid_key, unique_integer, account, company_lookup, \
-    base_schema, required_string, account_key
+from common import unique_integer, account, company_lookup, base_schema, \
+    required_string, account_key, company_key
 
 _schema = {
     # company id ('id')
-    companyid_key: unique_integer,
+    company_key: unique_integer,
     account_key:  account,
     'n': required_string,                  # name
     'p': {'type': 'string'},               # password

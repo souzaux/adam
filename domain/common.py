@@ -8,7 +8,6 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-companyid_key = 'id'
 company_key = 'c'
 account_key = 'a'
 
@@ -27,14 +26,13 @@ company = {
     'required': True,
     'data_relation': {
         'collection': 'companies',
-        'field': companyid_key,
+        'field': company_key,
     },
 }
 account = required_string
 
 # common resource settings
 company_lookup = {
-    'url': '^([1-9][0-9]*)$',   # to be unique
     'field': company_key
 }
 
