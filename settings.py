@@ -31,5 +31,8 @@ ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
 # accounts to only edit/retrieve data created by themselves.
 #AUTH_USERNAME_FIELD = domain.account_key
 
+# Disable HATEOAS
+HATEOAS = False
+
 # Set the API domain
 DOMAIN = domain.DOMAIN
