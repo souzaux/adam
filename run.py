@@ -38,7 +38,7 @@ if port:
     host = '0.0.0.0'
     port = int(port)
 else:
-    host = None
+    host = '127.0.0.1'
     port = 5000
 
 if __name__ == '__main__':
