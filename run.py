@@ -21,7 +21,7 @@ class Auth(TokenAuth):
     For details on Eve authentication handling see:
     http://python-eve.org/authentication.html
     """
-    def check_auth(self, token, allowed_roles, resource):
+    def check_auth(self, token, allowed_roles, resource, method):
         accounts = app.data.driver.db['accounts']
         lookup = {'t': token}
         if allowed_roles:
