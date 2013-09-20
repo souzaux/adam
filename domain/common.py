@@ -38,7 +38,7 @@ company_lookup = {
 
 # most resources share the following settings
 base_def = {
-    'auth_username_field': account_key
+    'auth_field': account_key
 }
 
 # most collections share the following schema definition
