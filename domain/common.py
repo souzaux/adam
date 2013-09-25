@@ -44,5 +44,5 @@ base_def = {
 # most collections share the following schema definition
 base_schema = {
     company_key: company,
-    account_key: account,
+    #account_key: account,
 }

@@ -27,7 +27,10 @@ class Auth(TokenAuth):
         if allowed_roles:
             # only retrieve a user if his roles match ``allowed_roles``
             lookup['r'] = {'$in': allowed_roles}
-        return accounts.find_one(lookup) is not None
+        account = accounts.find_one(lookup)
+        if account:
+            self.user_id = account['_id']
+        return account is not None
 
 app = Eve(auth=Auth)
 
