@@ -15,8 +15,8 @@ _schema = {
     # company id ('id')
     company_key: unique_integer,
     account_key:  account,
-    'n': required_string,                  # name
-    'p': {'type': 'string'},               # password
+    'n': required_string,                       # name
+    'p': {'type': 'string', 'nullable': True},  # password
 }
 
 definition = {
