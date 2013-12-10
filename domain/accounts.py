@@ -29,7 +29,7 @@ definition = {
     'cache_control': '',
     'cache_expires': 0,
     'additional_lookup': {
-        'url': '[\w]+',     # to be unique
+        'url': 'regex("[\w]+")',     # to be unique
         'field': 'u'
     },
     'schema': _schema,

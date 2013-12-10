@@ -25,7 +25,7 @@ company = {
     'type': 'integer',
     'required': True,
     'data_relation': {
-        'collection': 'companies',
+        'resource': 'companies',
         'field': company_key,
     },
 }
