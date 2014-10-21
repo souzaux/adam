@@ -34,5 +34,8 @@ ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
 # Disable HATEOAS
 HATEOAS = False
 
+# We want the whole document back with POST/PATCH/PUT responses.
+BANDWIDTH_SAVER = False
+
 # Set the API domain
 DOMAIN = domain.DOMAIN
