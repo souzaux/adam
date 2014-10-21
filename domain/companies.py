@@ -8,8 +8,7 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from common import unique_integer, company_lookup, base_schema, \
-    required_string, company_key
+from common import unique_integer, company_lookup, required_string, company_key
 
 _schema = {
     # company id ('id')
@@ -24,4 +23,3 @@ definition = {
     'additional_lookup': company_lookup,
     'schema': _schema,
 }
-definition.update(base_schema)
