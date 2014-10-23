@@ -24,7 +24,7 @@ if os.environ.get('PORT') is None:
 
 # Allow full range of CRUD operations on resources and items
 RESOURCE_METHODS = ['GET', 'POST']
-ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
+ITEM_METHODS = ['GET', 'PATCH', 'DELETE', 'PUT']
 
 # Enable 'User Restricted Resource Access' (see
 # http://python-eve.org/authentication.html#user-restricted.) This will allow
