@@ -8,11 +8,10 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from common import unique_integer, company_lookup, required_string, company_key
+from common import company_lookup, required_string
 
 _schema = {
     # company id ('id')
-    company_key: unique_integer,
     'n': required_string,                       # name
     'p': {'type': 'string', 'nullable': True},  # password
 }
