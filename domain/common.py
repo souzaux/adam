@@ -26,7 +26,7 @@ company = {
     'required': True,
     'data_relation': {
         'resource': 'companies',
-        'field': company_key,
+        'field': '_id',
     },
 }
 account = required_string
@@ -44,5 +44,5 @@ base_def = {
 # most collections share the following schema definition
 base_schema = {
     company_key: company,
-    #account_key: account,
+    # account_key: account,
 }
