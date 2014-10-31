@@ -8,7 +8,7 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from common import company_lookup, required_string
+from common import required_string
 
 _schema = {
     # company id ('id')
@@ -19,6 +19,6 @@ _schema = {
 definition = {
     'url': 'companies',
     'item_title': 'company',
-    'additional_lookup': company_lookup,
+    # 'additional_lookup': company_lookup,
     'schema': _schema,
 }
