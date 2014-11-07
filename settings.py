@@ -16,14 +16,14 @@ MONGO_PORT = int(os.environ.get('MONGO_PORT', 27017))
 MONGO_USERNAME = os.environ.get('MONGO_USERNAME', 'user')
 MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD', 'pw')
 MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'adam')
-SERVER_NAME = os.environ.get('SERVER_NAME', '127.0.0.1:5000')
+# SERVER_NAME = os.environ.get('SERVER_NAME', '127.0.0.1:5000')
 
 # $PORT is defined if we are hosted on Heroku
 if os.environ.get('PORT') is None:
     DEBUG = True
 
 # Allow full range of CRUD operations on resources and items
-RESOURCE_METHODS = ['GET', 'POST']
+RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
 ITEM_METHODS = ['GET', 'PATCH', 'DELETE', 'PUT']
 
 # Enable 'User Restricted Resource Access' (see
