@@ -12,32 +12,46 @@ from common import required_integer, company_lookup, base_def, base_schema, \
     required_datetime
 
 
-_meta = {
-    'b': {
+_month_series = {
+    'type': 'list',
+    'maxlength': 12,
+    'minlength': 12,
+    'required': True,
+    'schema': {
         'type': 'dict',
-        'required': True,
         'schema': {
-            'c': {
-                'type': 'list',
-                'maxlength': 2,
-            },
-            'p': {
-                'type': 'list',
-                'maxlength': 2,
-            },
-        },
+            'a': required_integer,      # amount
+            'q': required_integer,      # quantity
+        }
+    }
+}
+
+_year_series = {
+    'type': 'dict',
+    'required': True,
+    'schema': {
+        'c': _month_series,             # current year
+        'p': _month_series,             # previous year
     },
+}
+
+_accounts_payable_receivable = {
+    'p': {                              # accounts payable
+        'd': required_integer,          # debit due
+        's': _month_series,             # month series
+    },
+    'r': {                              # account receivable
+        'c': required_integer,          # credit due
+        's': _month_series,             # month series
+    }
 }
 
 _schema = {
     'y': required_datetime,             # current year
-    'b': _meta,                         # billed
-    'o': _meta,                         # orders
-    'p': {
-        'd': required_integer,    # due
-        'r': _meta,                     # received
-    },
-}
+    'b': _year_series,                  # billed
+    'o': _year_series,                  # orders
+    'a': _accounts_payable_receivable,  # accounts payable and receivable
+    }
 _schema.update(base_schema)
 
 definition = {
