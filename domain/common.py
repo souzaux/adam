@@ -35,7 +35,7 @@ required_datetime = {
 
 # common fields
 company = {
-    'type': 'integer',
+    'type': 'objectid',
     'required': True,
     'data_relation': {
         'resource': 'companies',

@@ -35,7 +35,7 @@ _year_series = {
     },
 }
 
-_accounts_payable_receivable = {
+_payable_receivable = {
     'p': {                              # accounts payable
         'd': required_integer,          # debit due
         's': _month_series,             # month series
@@ -50,14 +50,14 @@ _schema = {
     'y': required_datetime,             # current year
     'b': _year_series,                  # billed
     'o': _year_series,                  # orders
-    'a': _accounts_payable_receivable,  # accounts payable and receivable
+    'a': _payable_receivable,           # accounts payable and receivable
     }
 _schema.update(base_schema)
 
 definition = {
     'url': 'dashboard',
     'item_title': 'dashboard',
-    'additional_lookup': company_lookup,
+    #'additional_lookup': company_lookup,
     'schema': _schema,
 }
 definition.update(base_def)
