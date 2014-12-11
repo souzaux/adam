@@ -35,7 +35,6 @@ _schema = {
     'o': _meta,                         # orders
     'p': {
         'd': required_integer,    # due
-        'o': required_integer,    # overdue
         'r': _meta,                     # received
     },
 }
