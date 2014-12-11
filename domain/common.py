@@ -11,14 +11,27 @@
 company_key = 'c'
 account_key = 'a'
 
-# common types
-required_integer = {'type': 'integer', 'required': True}
+# common data types
+required_integer = {
+    'type': 'integer',
+    'required': True
+}
+
 unique_integer = required_integer.copy()
 unique_integer['unique'] = True
 
-required_string = {'type': 'string', 'required': True, 'empty': False}
+required_string = {
+    'type': 'string',
+    'required': True,
+    'empty': False
+}
 unique_string = required_string.copy()
 unique_string['unique'] = True
+
+required_datetime = {
+    'type': 'datetime',
+    'required': True
+}
 
 # common fields
 company = {

@@ -8,7 +8,9 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from common import required_integer, company_lookup, base_def, base_schema
+from common import required_integer, company_lookup, base_def, base_schema, \
+    required_datetime
+
 
 _meta = {
     'b': {
@@ -28,6 +30,7 @@ _meta = {
 }
 
 _schema = {
+    'y': required_datetime,             # current year
     'b': _meta,                         # billed
     'o': _meta,                         # orders
     'p': {
