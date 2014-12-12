@@ -29,18 +29,18 @@ class Auth(TokenAuth):
             lookup['r'] = {'$in': allowed_roles}
         account = accounts.find_one(lookup)
         if account:
-            self.request_auth_value = account['_id']
+            self.set_request_auth_value(account['_id'])
         return account is not None
+
+app = Eve(auth=Auth)
 
 # Heroku defines a $PORT environment variable that we use to determine
 # if we're running locally or not.
 port = os.environ.get('PORT')
 if port:
-    app = Eve(auth=Auth)
     host = '0.0.0.0'
     port = int(port)
 else:
-    app = Eve()
     host = '127.0.0.1'
     port = 5000
 

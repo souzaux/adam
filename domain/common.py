@@ -42,12 +42,6 @@ company = {
         'field': '_id',
     },
 }
-account = required_string
-
-# common resource settings
-company_lookup = {
-    'field': company_key
-}
 
 # most resources share the following settings
 base_def = {
@@ -57,5 +51,4 @@ base_def = {
 # most collections share the following schema definition
 base_schema = {
     company_key: company,
-    # account_key: account,
 }

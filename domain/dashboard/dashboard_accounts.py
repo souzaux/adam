@@ -28,6 +28,7 @@ _schema.update(base_schema)
 definition = {
     'url': 'dashboard-accounts',
     'item_title': 'accounts payable and receivable',
+    'datasource': {'source': 'dashboard_accounts'},
     'schema': _schema,
 }
 definition.update(base_def)

@@ -31,6 +31,7 @@ _schema.update(base_schema)
 definition = {
     'url': 'dashboard-documents',
     'item_title': 'documents dashboard',
+    'datasource': {'source': 'dashboard_documents'},
     'schema': _schema,
 }
 definition.update(base_def)
