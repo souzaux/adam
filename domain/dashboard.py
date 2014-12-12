@@ -8,8 +8,7 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from common import required_integer, company_lookup, base_def, base_schema, \
-    required_datetime
+from common import required_integer, base_def, base_schema, required_datetime
 
 
 _month_series = {
@@ -57,7 +56,6 @@ _schema.update(base_schema)
 definition = {
     'url': 'dashboard',
     'item_title': 'dashboard',
-    #'additional_lookup': company_lookup,
     'schema': _schema,
 }
 definition.update(base_def)
