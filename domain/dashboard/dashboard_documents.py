@@ -8,8 +8,8 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from domain.dashboard.common import month_series
-from domain.common import base_def, base_schema, required_datetime
+from domain.dashboard.common import month_series, current_year
+from domain.common import base_def, base_schema
 
 
 _year_series = {
@@ -22,7 +22,7 @@ _year_series = {
 }
 
 _schema = {
-    'y': required_datetime,             # current year
+    'y': current_year,
     'b': _year_series,                  # billed
     'o': _year_series,                  # orders
     }

@@ -1,5 +1,10 @@
 from domain.common import required_integer
 
+current_year = {
+    'type': 'integer',
+    'required': True,
+}
+
 month_series = {
     'type': 'list',
     'maxlength': 12,
