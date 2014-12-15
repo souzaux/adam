@@ -8,9 +8,10 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
+import os
 from eve import Eve
 from eve.auth import TokenAuth
-import os
+from dashboard import dashboard_insert, dashboard_delete, dashboard_replace
 
 
 class Auth(TokenAuth):
@@ -33,6 +34,10 @@ class Auth(TokenAuth):
         return account is not None
 
 app = Eve(auth=Auth)
+
+app.on_inserted += dashboard_insert
+app.on_replaced += dashboard_replace
+app.on_deleted_item += dashboard_delete
 
 # Heroku defines a $PORT environment variable that we use to determine
 # if we're running locally or not.
