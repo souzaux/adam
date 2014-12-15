@@ -11,8 +11,6 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-
-
 import sys
 from flask import current_app as app
 
