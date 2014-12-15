@@ -11,6 +11,7 @@
 import countries
 import companies
 import accounts
+import documents
 from dashboard import dashboard_accounts, dashboard_documents
 
 DOMAIN = {
@@ -19,4 +20,5 @@ DOMAIN = {
     'dashboard-accounts': dashboard_accounts.definition,
     'dashboard-documents': dashboard_documents.definition,
     'accounts': accounts.definition,
+    'documents': documents.definition,
 }
