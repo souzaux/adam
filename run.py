@@ -12,10 +12,11 @@ import os
 
 from eve import Eve
 from auth import Auth
+from callbacks import dashboard
 
 app = Eve(auth=Auth)
 
-from callbacks import dashboard
+app.on_inserted += dashboard.insertion
 
 
 # Heroku defines a $PORT environment variable that we use to determine

@@ -8,16 +8,18 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from domain.dashboard.common import month_series, year
+from domain.dashboard.common import month_series, year, year_key
 from domain.common import base_def, base_schema
 
 # TODO db index on company+year
+invoices_key = 'i'
+orders_key = 'o'
 
 _schema = {
-    'y': year,
-    'b': month_series,                  # billed
-    'o': month_series,                  # orders
-    }
+    year_key: year,
+    invoices_key: month_series,                # invoices
+    orders_key: month_series,                  # orders
+}
 _schema.update(base_schema)
 
 definition = {

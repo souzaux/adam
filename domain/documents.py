@@ -11,10 +11,12 @@
 from domain.common import base_def, base_schema, required_datetime, \
     required_integer
 
+total_key = 't'
+date_key = 'd'
 
 _schema = {
-    'd': required_datetime,             # docment date
-    't': required_integer               # total amount
+    date_key: required_datetime,             # docment date
+    total_key: required_integer              # total amount
     }
 _schema.update(base_schema)
 

@@ -2,12 +2,15 @@ from domain.common import required_integer
 
 # TODO consider removing the unique constraint on 'year' (for peformance)
 
+year_key = 'y'
 year = {
     'type': 'integer',
     'required': True,
     'unique': True,
 }
 
+amount_key = 'a'
+quantity_key = 'q'
 month_series = {
     'type': 'list',
     'maxlength': 12,
@@ -16,8 +19,8 @@ month_series = {
     'schema': {
         'type': 'dict',
         'schema': {
-            'a': required_integer,      # amount
-            'q': required_integer,      # quantity
+            amount_key: required_integer,        # amount
+            quantity_key: required_integer,      # quantity
         }
     }
 }
