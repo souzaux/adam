@@ -1,8 +1,11 @@
 from domain.common import required_integer
 
-current_year = {
+# TODO consider removing the unique constraint on 'year' (for peformance)
+
+year = {
     'type': 'integer',
     'required': True,
+    'unique': True,
 }
 
 month_series = {

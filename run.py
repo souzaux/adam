@@ -11,16 +11,12 @@
 import os
 
 from eve import Eve
-
 from auth import Auth
-from dashboard import dashboard_insert, dashboard_delete, dashboard_replace
-
 
 app = Eve(auth=Auth)
 
-app.on_inserted += dashboard_insert
-app.on_replaced += dashboard_replace
-app.on_deleted_item += dashboard_delete
+from callbacks import dashboard
+
 
 # Heroku defines a $PORT environment variable that we use to determine
 # if we're running locally or not.

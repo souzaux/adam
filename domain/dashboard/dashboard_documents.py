@@ -8,23 +8,15 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from domain.dashboard.common import month_series, current_year
+from domain.dashboard.common import month_series, year
 from domain.common import base_def, base_schema
 
-
-_year_series = {
-    'type': 'dict',
-    'required': True,
-    'schema': {
-        'c': month_series,             # current year
-        'p': month_series,             # previous year
-    },
-}
+# TODO db index on company+year
 
 _schema = {
-    'y': current_year,
-    'b': _year_series,                  # billed
-    'o': _year_series,                  # orders
+    'y': year,
+    'b': month_series,                  # billed
+    'o': month_series,                  # orders
     }
 _schema.update(base_schema)
 

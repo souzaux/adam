@@ -8,12 +8,13 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from domain.dashboard.common import month_series, current_year
+from domain.dashboard.common import month_series, year
 from domain.common import required_integer, base_def, base_schema
 
+# TODO db index on company+year
 
 _schema = {
-    'y': current_year,
+    'y': year,
     'p': {                              # accounts payable
         'd': required_integer,          # debit due
         's': month_series,              # months series
