@@ -23,6 +23,18 @@ from callbacks.common import auth, empty_month_series
 
 import datetime  # noqa
 
+""" IMPORTANT
+
+    Since the dashboard is supposed to be readonly for the clients and we
+    also want to strive for best performance since it will be updated
+    frequently, we choose to udpate it out-of-band (not via internal Eve
+    methods like 'post_internal').
+
+    Side effect is that some meta fields like _updated and _created are
+    not going to be reliable (_etag will be computed by eve on the fly
+    since missing).
+"""
+
 
 def accounts_insert(accounts):
     """ Accounts have been inserted; update dashboard accordingly """
