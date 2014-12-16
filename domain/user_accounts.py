@@ -10,6 +10,9 @@
 """
 from common import base_schema, required_string
 
+token_key = 't'
+roles_key = 'r'
+
 _schema = {
     'u': required_string,   # username
     'p': required_string,   # password

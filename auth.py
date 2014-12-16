@@ -8,8 +8,9 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from eve.auth import TokenAuth
 from flask import current_app as app
+from eve.auth import TokenAuth
+from domain.user_accounts import token_key, roles_key
 
 
 class Auth(TokenAuth):
@@ -22,11 +23,11 @@ class Auth(TokenAuth):
     """
     def check_auth(self, token, allowed_roles, resource, method):
         accounts = app.data.driver.db['user_accounts']
-        lookup = {'t': token}
+        lookup = {token_key: token}
         if allowed_roles:
             # only retrieve a user if his roles match ``allowed_roles``
-            lookup['r'] = {'$in': allowed_roles}
+            lookup[roles_key] = {'$in': allowed_roles}
         account = accounts.find_one(lookup)
         if account:
-            self.set_request_auth_value(account['_id'])
+            self.set_request_auth_value(account[app.config['ID_FIELD']])
         return account is not None
