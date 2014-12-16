@@ -10,7 +10,7 @@
 """
 import countries
 import companies
-import accounts
+import user_accounts
 import documents
 from dashboard import dashboard_accounts, dashboard_documents
 
@@ -19,6 +19,6 @@ DOMAIN = {
     'companies': companies.definition,
     'dashboard-accounts': dashboard_accounts.definition,
     'dashboard-documents': dashboard_documents.definition,
-    'accounts': accounts.definition,
+    'user_accounts': user_accounts.definition,
     'documents': documents.definition,
 }

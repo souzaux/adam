@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-    callbacks.dashboard.documents.insert.py
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    callbacks.dashboard.documents.py
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    Dashboard Insertion Module.
+    Documents (invoices and orders) dashboard.
 
-    This module updates the dashboard each time a document which is relevant
-    to the dashboard is added to the server.
+    This module updates the dashboard each time an invoice or an order
+    is added, updated or delete.
 
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
@@ -14,7 +14,7 @@
 from flask import current_app as app
 
 from domain.common import company_key
-from domain.documents import total_key
+from domain.documents import total_key, date_key
 from domain.dashboard.common import year_key, amount_key, quantity_key
 from domain.dashboard.dashboard_documents import invoices_key, orders_key
 
@@ -25,23 +25,32 @@ def documents_insert(docs):
     """ Documents have been inserted; update dashboard accordingly """
 
     for doc in docs:
-        _dashboard_update(doc, doc[total_key], 1)
+        delta = doc[total_key]
+        _dashboard_update(delta, 1, *_meta(doc))
 
 
 def document_replace(new, original):
     """ Document has been replaced; update dashboard accordingly """
 
     delta = new[total_key] - original[total_key]
-    _dashboard_update(new, delta, 0)
+    _dashboard_update(delta, 0, *_meta(new))
 
 
-def _dashboard_update(doc, amount, quantity):
+def document_delete(doc):
+    """ Document has been deleted; update dashboard accordingly """
+    delta = doc[total_key] * -1
+    _dashboard_update(delta, -1, *_meta(doc))
+
+
+def _meta(doc):
+    """ Return document date and company """
+    return doc[date_key], doc[company_key]
+
+
+def _dashboard_update(delta, quantity, date, company):
     """ Updates a documents dashboard """
 
-    date = doc['d']
     year, month = date.year, date.month-1
-
-    company = doc[company_key]
     lookup = {company_key: company, year_key: year}
 
     array = [{amount_key: 0, quantity_key: 0} for k in range(12)]
@@ -70,7 +79,7 @@ def _dashboard_update(doc, amount, quantity):
     item = '%s.%d' % (doc_type, month)
     amount_item = '%s.%s' % (item, amount_key)
     quantity_item = '%s.%s' % (item, quantity_key)
-    bulk.find(lookup).update({'$inc': {amount_item: amount, quantity_item:
+    bulk.find(lookup).update({'$inc': {amount_item: delta, quantity_item:
                                        quantity}})
     r = bulk.execute()
 
