@@ -22,64 +22,59 @@ import datetime  # noqa
 
 
 def documents_insert(docs):
-    """ Document has been inserted so we have to update the dashboard """
+    """ Documents have been inserted; update dashboard accordingly """
+
     for doc in docs:
+        _dashboard_update(doc, doc[total_key], 1)
 
-        date = doc['d']
-        year, month = date.year, date.month-1
-        company = doc[company_key]
 
-        # TODO consider adding auth_field to the lookup. Should not be
-        # needed since year+cpmpany-key is unique
-        lookup = {company_key: company, year_key: year}
+def document_replace(new, original):
+    """ Document has been replaced; update dashboard accordingly """
 
-        array = [{amount_key: 0, quantity_key: 0} for k in range(12)]
-        empty = {
-            company_key: company,
-            year_key: year,
-            invoices_key: array,
-            orders_key: array
-        }
+    delta = new[total_key] - original[total_key]
+    _dashboard_update(new, delta, 0)
 
-        # add auth_field if needed
-        resource_def = app.config['DOMAIN']['documents']
-        auth = resource_def['authentication']
-        auth_field = resource_def['auth_field']
-        if auth and auth_field:
-            auth_value = auth.get_request_auth_value()
-            empty.update(
-                {auth_field: auth_value}
-            )
 
-        # TODO conditional set based on actual doc_type
-        doc_type = invoices_key
+def _dashboard_update(doc, amount, quantity):
+    """ Updates a documents dashboard """
 
-        dashboard = app.data.driver.db['dashboard_documents']
+    date = doc['d']
+    year, month = date.year, date.month-1
 
-        # prepare bulk operation
-        bulk = dashboard.initialize_ordered_bulk_op()
+    company = doc[company_key]
+    lookup = {company_key: company, year_key: year}
 
-        # create empty DB if needed
-        bulk.find(lookup).upsert().update(
-            {
-                '$setOnInsert': empty
-            }
-        )
+    array = [{amount_key: 0, quantity_key: 0} for k in range(12)]
+    empty = {company_key: company, year_key: year, invoices_key: array,
+             orders_key: array}
 
-        # increase stats as needed
-        item = '%s.%d' % (doc_type, month)
-        amount_item = '%s.%s' % (item, amount_key)
-        quantity_item = '%s.%s' % (item, quantity_key)
-        bulk.find(lookup).update(
-            {
-                '$inc': {amount_item: doc[total_key], quantity_item: 1}
-            }
-        )
+    # add auth_field if needed
+    resource_def = app.config['DOMAIN']['documents']
+    auth = resource_def['authentication']
+    auth_field = resource_def['auth_field']
+    if auth and auth_field:
+        auth_value = auth.get_request_auth_value()
+        empty.update({auth_field: auth_value})
 
-        # execute bulk op
-        r = bulk.execute()
+    # TODO conditional set based on actual doc_type
+    doc_type = invoices_key
 
-        # TODO remove or switch to log?
-        if app.config['DEBUG'] is True:
-            from pprint import pprint
-            pprint(r)
+    dashboard = app.data.driver.db['dashboard_documents']
+
+    bulk = dashboard.initialize_ordered_bulk_op()
+
+    # add dashboard if needed
+    bulk.find(lookup).upsert().update({'$setOnInsert': empty})
+
+    # update dashboard
+    item = '%s.%d' % (doc_type, month)
+    amount_item = '%s.%s' % (item, amount_key)
+    quantity_item = '%s.%s' % (item, quantity_key)
+    bulk.find(lookup).update({'$inc': {amount_item: amount, quantity_item:
+                                       quantity}})
+    r = bulk.execute()
+
+    # TODO remove or log?
+    if app.config['DEBUG'] is True:
+        from pprint import pprint
+        pprint(r)
