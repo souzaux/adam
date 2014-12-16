@@ -18,6 +18,8 @@ from domain.documents import total_key, date_key
 from domain.dashboard.common import year_key, amount_key, quantity_key
 from domain.dashboard.dashboard_documents import invoices_key, orders_key
 
+from callbacks.common import auth
+
 import datetime  # noqa
 
 
@@ -57,12 +59,8 @@ def _dashboard_update(delta, quantity, date, company):
     empty = {company_key: company, year_key: year, invoices_key: array,
              orders_key: array}
 
-    # add auth_field if needed
-    resource_def = app.config['DOMAIN']['documents']
-    auth = resource_def['authentication']
-    auth_field = resource_def['auth_field']
-    if auth and auth_field:
-        auth_value = auth.get_request_auth_value()
+    auth_field, auth_value = auth('documents')
+    if auth_value:
         empty.update({auth_field: auth_value})
 
     # TODO conditional set based on actual doc_type
