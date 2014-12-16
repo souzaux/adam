@@ -12,17 +12,14 @@ import os
 
 from eve import Eve
 from auth import Auth
-from callbacks import dashboard
+from callbacks.dashboard import dashboard
 
 app = Eve(auth=Auth)
+dashboard.init(app)
 
-app.on_inserted += dashboard.insertion
-
-
-# Heroku defines a $PORT environment variable that we use to determine
-# if we're running locally or not.
 port = os.environ.get('PORT')
 if port:
+    # Heroku
     host = '0.0.0.0'
     port = int(port)
 else:
