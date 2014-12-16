@@ -32,13 +32,13 @@ def accounts_insert(accounts):
         _dashboard_update(delta, 1, *_meta(account))
 
 
-#def document_replace(new, original):
-#    """ Document has been replaced; update dashboard accordingly """
-#
-#    delta = new[total_key] - original[total_key]
-#    _dashboard_update(delta, 0, *_meta(new))
-#
-#
+def account_replace(new, original):
+    """ Account has been replaced; update dashboard accordingly """
+
+    delta = new[amount_key] - original[amount_key]
+    _dashboard_update(delta, 0, *_meta(new))
+
+
 #def document_delete(account):
 #    """ Document has been deleted; update dashboard accordingly """
 #    delta = account[total_key] * -1
