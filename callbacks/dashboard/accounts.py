@@ -39,10 +39,11 @@ def account_replace(new, original):
     _dashboard_update(delta, 0, *_meta(new))
 
 
-#def document_delete(account):
-#    """ Document has been deleted; update dashboard accordingly """
-#    delta = account[total_key] * -1
-#    _dashboard_update(delta, -1, *_meta(doc))
+def account_delete(account):
+    """ Document has been deleted; update dashboard accordingly """
+
+    delta = account[amount_key] * -1
+    _dashboard_update(delta, -1, *_meta(account))
 
 
 def _meta(account):
