@@ -1,4 +1,4 @@
-from domain.common import required_integer
+from domain.common import required_integer, amount_key
 
 # TODO consider removing the unique constraint on 'year' (for peformance)
 
@@ -9,7 +9,6 @@ year = {
     'unique': True,
 }
 
-amount_key = 'a'
 quantity_key = 'q'
 month_series = {
     'type': 'list',

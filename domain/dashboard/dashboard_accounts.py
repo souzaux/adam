@@ -10,18 +10,23 @@
 """
 from domain.dashboard.common import month_series, year, year_key
 from domain.common import required_integer, base_def, base_schema
+from domain.accounts import payable_key, receivable_key
 
 # TODO db index on company+year
 
+debit_due_key = 'd'
+credit_due_key = 'c'
+month_series_key = 's'
+
 _schema = {
     year_key: year,
-    'p': {                              # accounts payable
-        'd': required_integer,          # debit due
-        's': month_series,              # months series
+    payable_key: {                          # accounts payable
+        debit_due_key: required_integer,    # debit due
+        month_series_key: month_series,     # months series
     },
-    'r': {                              # accounts receivable
-        'c': required_integer,          # credit due
-        's': month_series,              # month series
+    receivable_key: {                       # accounts receivable
+        credit_due_key: required_integer,   # credit due
+        month_series_key: month_series,     # month series
     }
 }
 _schema.update(base_schema)

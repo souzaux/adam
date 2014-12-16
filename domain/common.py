@@ -9,7 +9,8 @@
     :license: BSD, see LICENSE for more details.
 """
 company_key = 'c'
-account_key = 'a'
+account_key = 'ac'
+amount_key = 'a'
 
 # common data types
 required_integer = {

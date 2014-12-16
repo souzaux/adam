@@ -10,6 +10,8 @@
 """
 from flask import current_app as app
 
+from domain.dashboard.common import amount_key, quantity_key
+
 
 def auth(resource):
     """ Return current app's auth_field and auth_value """
@@ -18,3 +20,8 @@ def auth(resource):
     auth_field = resource_def['auth_field']
     auth_value = auth.get_request_auth_value() if auth and auth_field else None
     return auth_field, auth_value
+
+
+def empty_month_series():
+    """ Return an empty month series for the dashboards """
+    return [{amount_key: 0, quantity_key: 0} for k in range(12)]
