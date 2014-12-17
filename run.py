@@ -11,10 +11,17 @@
 import os
 
 from eve import Eve
-from auth import Auth
-from callbacks.dashboard import dashboard
+from adam.auth import Auth
+from adam.callbacks.dashboard import dashboard
 
-app = Eve(auth=Auth)
+# Load the settings file using a robust path so it works when
+# the script is imported from the test suite.
+this_directory = os.path.dirname(os.path.realpath(__file__))
+settings_file = os.path.join(this_directory, 'settings.py')
+
+app = Eve(auth=Auth, settings=settings_file)
+
+# Attach callbacks event hooks.
 dashboard.init(app)
 
 port = os.environ.get('PORT')

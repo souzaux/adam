@@ -10,7 +10,7 @@
 """
 from flask import current_app as app
 
-from domain.dashboard.common import amount_key, quantity_key
+from adam.domain.dashboard.common import amount_key, quantity_key
 
 
 def auth(resource):

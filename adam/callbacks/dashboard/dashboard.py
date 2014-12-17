@@ -8,10 +8,10 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from callbacks.dashboard.documents import documents_insert, document_replace, \
-    document_delete
-from callbacks.dashboard.accounts import accounts_insert, account_replace, \
-    account_delete
+from adam.callbacks.dashboard.documents import documents_insert, \
+    document_replace, document_delete
+from adam.callbacks.dashboard.accounts import accounts_insert, \
+    account_replace, account_delete
 
 
 def init(app):

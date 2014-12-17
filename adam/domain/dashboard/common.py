@@ -1,4 +1,4 @@
-from domain.common import required_integer, amount_key
+from adam.domain.common import required_integer, amount_key
 
 # TODO consider removing the unique constraint on 'year' (for peformance)
 

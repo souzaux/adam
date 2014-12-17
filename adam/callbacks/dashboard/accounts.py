@@ -13,13 +13,14 @@
 """
 from flask import current_app as app
 
-from domain.common import company_key
-from domain.accounts import date_key, type_key, payable_key, receivable_key
-from domain.dashboard.common import year_key, quantity_key, amount_key
-from domain.dashboard.dashboard_accounts import debit_due_key, credit_due_key,\
-    month_series_key
+from adam.domain.common import company_key
+from adam.domain.accounts import date_key, type_key, payable_key, \
+    receivable_key
+from adam.domain.dashboard.common import year_key, quantity_key, amount_key
+from adam.domain.dashboard.dashboard_accounts import debit_due_key, \
+    credit_due_key, month_series_key
 
-from callbacks.common import auth, empty_month_series
+from adam.callbacks.common import auth, empty_month_series
 
 import datetime  # noqa
 

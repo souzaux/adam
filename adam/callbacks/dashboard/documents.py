@@ -13,12 +13,12 @@
 """
 from flask import current_app as app
 
-from domain.common import company_key
-from domain.documents import total_key, date_key
-from domain.dashboard.common import year_key, amount_key, quantity_key
-from domain.dashboard.dashboard_documents import invoices_key, orders_key
+from adam.domain.common import company_key
+from adam.domain.documents import total_key, date_key
+from adam.domain.dashboard.common import year_key, amount_key, quantity_key
+from adam.domain.dashboard.dashboard_documents import invoices_key, orders_key
 
-from callbacks.common import auth
+from adam.callbacks.common import auth
 
 import datetime  # noqa
 

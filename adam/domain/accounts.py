@@ -8,8 +8,8 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from domain.common import base_def, base_schema, required_datetime, \
-    required_integer, amount_key
+from common import base_def, base_schema, required_datetime, required_integer,\
+    amount_key
 
 date_key = 'd'
 type_key = 't'

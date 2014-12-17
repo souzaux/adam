@@ -8,9 +8,9 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from domain.dashboard.common import month_series, year, year_key
-from domain.common import required_integer, base_def, base_schema
-from domain.accounts import payable_key, receivable_key
+from adam.domain.dashboard.common import month_series, year, year_key
+from adam.domain.common import required_integer, base_def, base_schema
+from adam.domain.accounts import payable_key, receivable_key
 
 # TODO db index on company+year
 
