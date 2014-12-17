@@ -26,6 +26,8 @@ definition = {
     'url': 'dashboard-documents',
     'item_title': 'documents dashboard',
     'datasource': {'source': 'dashboard_documents'},
+    'resource_methods': ['GET'],
+    'item_methods': ['GET'],
     'schema': _schema,
 }
 definition.update(base_def)

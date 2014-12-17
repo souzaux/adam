@@ -35,6 +35,8 @@ definition = {
     'url': 'dashboard-accounts',
     'item_title': 'accounts payable and receivable',
     'datasource': {'source': 'dashboard_accounts'},
+    'resource_methods': ['GET'],
+    'item_methods': ['GET'],
     'schema': _schema,
 }
 definition.update(base_def)
