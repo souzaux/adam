@@ -14,7 +14,7 @@
 from flask import current_app as app
 
 from adam.domain.common import company_key
-from adam.domain.documents import total_key, date_key
+from adam.domain.documents import total_key, date_key, type_key, types
 from adam.domain.dashboard.common import year_key, amount_key, quantity_key
 from adam.domain.dashboard.dashboard_documents import invoices_key, orders_key
 
@@ -58,10 +58,10 @@ def document_delete(doc):
 
 def _meta(doc):
     """ Return document date and company """
-    return doc[date_key], doc[company_key]
+    return doc[date_key], doc[company_key], doc[type_key]
 
 
-def _dashboard_update(delta, quantity, date, company):
+def _dashboard_update(delta, quantity, date, company, type):
     """ Updates a documents dashboard """
 
     year, month = date.year, date.month-1
@@ -75,8 +75,10 @@ def _dashboard_update(delta, quantity, date, company):
     if auth_value:
         empty.update({auth_field: auth_value})
 
-    # TODO conditional set based on actual doc_type
-    doc_type = invoices_key
+    if type == types.invoice:
+        doc_type = invoices_key
+    elif type == types.customer_order:
+        doc_type = orders_key
 
     dashboard = app.data.driver.db['dashboard_documents']
 
