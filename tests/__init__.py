@@ -51,6 +51,9 @@ class TestBase(unittest.TestCase):
     def assert204(self, status):
         self.assertEqual(status, 204)
 
+    def assert401(self, status):
+        self.assertEqual(status, 401)
+
     def setupDB(self):
         self.connection = MongoClient(MONGO_HOST, MONGO_PORT)
         self.connection.drop_database(MONGO_DBNAME)
