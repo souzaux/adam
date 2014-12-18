@@ -11,6 +11,8 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
+import os
+
 from flask import current_app as app
 
 from adam.domain.common import company_key
@@ -96,6 +98,6 @@ def _dashboard_update(delta, quantity, date, company, type):
     r = bulk.execute()
 
     # TODO remove or log?
-    if app.config['DEBUG'] is True:
+    if app.config['DEBUG'] is True and os.environ.get('TESTING') is None:
         from pprint import pprint
         pprint(r)
