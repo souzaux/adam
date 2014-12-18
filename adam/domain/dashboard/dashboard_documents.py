@@ -15,6 +15,8 @@ from adam.domain.common import base_def, base_schema
 invoices_key = 'i'
 orders_key = 'o'
 
+url = 'dashboard-documents'
+
 _schema = {
     year_key: year,
     invoices_key: month_series,                # invoices
@@ -23,7 +25,7 @@ _schema = {
 _schema.update(base_schema)
 
 definition = {
-    'url': 'dashboard-documents',
+    'url': url,
     'item_title': 'documents dashboard',
     'datasource': {'source': 'dashboard_documents'},
     'resource_methods': ['GET'],
