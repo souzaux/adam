@@ -31,10 +31,13 @@ _schema = {
         'allowed': [key.payable, key.receivable],
         'required': True
     }
-    }
+}
 _schema.update(base_schema)
 
+url = 'accounts'
+
 definition = {
+    'url': url,
     'schema': _schema,
 }
 definition.update(base_def)

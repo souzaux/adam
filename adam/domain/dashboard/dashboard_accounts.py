@@ -41,8 +41,10 @@ _schema = {
 }
 _schema.update(base_schema)
 
+url = 'dashboard_accounts'
+
 definition = {
-    'url': 'dashboard-accounts',
+    'url': url,
     'item_title': 'accounts payable and receivable',
     'datasource': {'source': 'dashboard_accounts'},
     'resource_methods': ['GET'],
