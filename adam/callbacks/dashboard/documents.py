@@ -15,10 +15,9 @@ import os
 
 from flask import current_app as app
 
-from adam.domain.common import company_key
-from adam.domain.documents import total_key, date_key, type_key, types
-from adam.domain.dashboard.common import year_key, amount_key, quantity_key
-from adam.domain.dashboard.dashboard_documents import invoices_key, orders_key
+import adam.domain.documents as docs
+from adam.domain.dashboard.common import key as months_key
+from adam.domain.dashboard.dashboard_documents import key
 
 from adam.callbacks.common import auth
 
@@ -37,50 +36,50 @@ import datetime  # noqa
 """
 
 
-def documents_insert(docs):
+def documents_insert(documents):
     """ Documents have been inserted; update dashboard accordingly """
 
-    for doc in docs:
-        delta = doc[total_key]
+    for doc in documents:
+        delta = doc[docs.key.total]
         _dashboard_update(delta, 1, *_meta(doc))
 
 
 def document_replace(new, original):
     """ Document has been replaced; update dashboard accordingly """
 
-    delta = new[total_key] - original[total_key]
+    delta = new[docs.key.total] - original[docs.key.total]
     _dashboard_update(delta, 0, *_meta(new))
 
 
 def document_delete(doc):
     """ Document has been deleted; update dashboard accordingly """
-    delta = doc[total_key] * -1
+    delta = doc[docs.key.total] * -1
     _dashboard_update(delta, -1, *_meta(doc))
 
 
 def _meta(doc):
     """ Return document date and company """
-    return doc[date_key], doc[company_key], doc[type_key]
+    return doc[docs.key.date], doc[docs.key.company], doc[docs.key.type]
 
 
 def _dashboard_update(delta, quantity, date, company, type):
     """ Updates a documents dashboard """
 
     year, month = date.year, date.month-1
-    lookup = {company_key: company, year_key: year}
+    lookup = {key.company: company, key.year: year}
 
-    array = [{amount_key: 0, quantity_key: 0} for k in range(12)]
-    empty = {company_key: company, year_key: year, invoices_key: array,
-             orders_key: array}
+    array = [{months_key.amount: 0, months_key.quantity: 0} for k in range(12)]
+    empty = {key.company: company, key.year: year, key.invoices: array,
+             key.orders: array}
 
     auth_field, auth_value = auth('documents')
     if auth_value:
         empty.update({auth_field: auth_value})
 
-    if type == types.invoice:
-        doc_type = invoices_key
-    elif type == types.customer_order:
-        doc_type = orders_key
+    if type == docs.doctype.invoice:
+        doc_type = key.invoices
+    elif type == docs.doctype.customer_order:
+        doc_type = key.orders
 
     dashboard = app.data.driver.db['dashboard_documents']
 
@@ -91,8 +90,8 @@ def _dashboard_update(delta, quantity, date, company, type):
 
     # update dashboard
     item = '%s.%d' % (doc_type, month)
-    amount_item = '%s.%s' % (item, amount_key)
-    quantity_item = '%s.%s' % (item, quantity_key)
+    amount_item = '%s.%s' % (item, months_key.amount)
+    quantity_item = '%s.%s' % (item, months_key.quantity)
     bulk.find(lookup).update({'$inc': {amount_item: delta, quantity_item:
                                        quantity}})
     r = bulk.execute()

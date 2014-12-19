@@ -8,25 +8,35 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from adam.domain.dashboard.common import month_series, year, year_key
-from adam.domain.common import required_integer, base_def, base_schema
-from adam.domain.accounts import payable_key, receivable_key
+from collections import namedtuple
+from adam.domain.dashboard.common import month_series, year, key as db_key
+from adam.domain.common import required_integer, base_def, base_schema, \
+    key as common_key
+from adam.domain.accounts import key as accounts_key
 
 # TODO db index on company+year
 
-debit_due_key = 'd'
-credit_due_key = 'c'
-month_series_key = 's'
+SchemaKey = namedtuple('SchemaKey', 'credit_due, debit_due, month_series,'
+                       + 'year, payable, receivable, company')
+key = SchemaKey(
+    credit_due='cd',
+    debit_due='dd',
+    month_series='s',
+    year=db_key.year,
+    payable=accounts_key.payable,
+    receivable=accounts_key.receivable,
+    company=common_key.company
+)
 
 _schema = {
-    year_key: year,
-    payable_key: {                          # accounts payable
-        debit_due_key: required_integer,    # debit due
-        month_series_key: month_series,     # months series
+    key.year: year,
+    key.payable: {
+        key.debit_due: required_integer,
+        key.month_series: month_series,
     },
-    receivable_key: {                       # accounts receivable
-        credit_due_key: required_integer,   # credit due
-        month_series_key: month_series,     # month series
+    key.receivable: {
+        key.credit_due: required_integer,
+        key.month_series: month_series,
     }
 }
 _schema.update(base_schema)

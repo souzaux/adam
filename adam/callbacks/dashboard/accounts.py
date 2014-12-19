@@ -13,12 +13,9 @@
 """
 from flask import current_app as app
 
-from adam.domain.common import company_key
-from adam.domain.accounts import date_key, type_key, payable_key, \
-    receivable_key
-from adam.domain.dashboard.common import year_key, quantity_key, amount_key
-from adam.domain.dashboard.dashboard_accounts import debit_due_key, \
-    credit_due_key, month_series_key
+import adam.domain.accounts as accounts
+from adam.domain.dashboard.common import key as months_key
+from adam.domain.dashboard.dashboard_accounts import key
 
 from adam.callbacks.common import auth, empty_month_series
 
@@ -41,45 +38,46 @@ def accounts_insert(accounts):
     """ Accounts have been inserted; update dashboard accordingly """
 
     for account in accounts:
-        delta = account[amount_key]
+        delta = account[accounts.key.amount]
         _dashboard_update(delta, 1, *_meta(account))
 
 
 def account_replace(new, original):
     """ Account has been replaced; update dashboard accordingly """
 
-    delta = new[amount_key] - original[amount_key]
+    delta = new[accounts.key.amount] - original[accounts.key.amount]
     _dashboard_update(delta, 0, *_meta(new))
 
 
 def account_delete(account):
     """ Document has been deleted; update dashboard accordingly """
 
-    delta = account[amount_key] * -1
+    delta = account[accounts.key.amount] * -1
     _dashboard_update(delta, -1, *_meta(account))
 
 
 def _meta(account):
     """ Return document date and company """
-    return account[date_key], account[company_key], account[type_key]
+    return account[accounts.key.date], account[accounts.key.company], \
+        account[accounts.key.type]
 
 
 def _dashboard_update(delta, quantity, date, company, type):
     """ Updates a documents dashboard """
 
     year, month = date.year, date.month-1
-    lookup = {company_key: company, year_key: year}
+    lookup = {key.company: company, key.year: year}
 
     array = empty_month_series()
     empty = {
-        year_key: year,
-        payable_key: {
-            debit_due_key: 0,
-            month_series_key: array
+        key.year: year,
+        key.payable: {
+            key.debit_due: 0,
+            key.month_series: array
         },
-        receivable_key: {
-            credit_due_key: 0,
-            month_series_key: array
+        key.receivable: {
+            key.credi_due: 0,
+            key.month_series: array
         }
     }
 
@@ -95,12 +93,12 @@ def _dashboard_update(delta, quantity, date, company, type):
     bulk.find(lookup).upsert().update({'$setOnInsert': empty})
 
     # update dashboard
-    due = '%s.%s' % (type, credit_due_key
-                     if type == receivable_key else debit_due_key)
+    due = '%s.%s' % (type, key.credit_due
+                     if type == key.receivable else key.debit_due)
 
-    item = '%s.%s.%d' % (type, month_series_key, month)
-    amount_item = '%s.%s' % (item, amount_key)
-    quantity_item = '%s.%s' % (item, quantity_key)
+    item = '%s.%s.%d' % (type, key.month_series, month)
+    amount_item = '%s.%s' % (item, months_key.amount)
+    quantity_item = '%s.%s' % (item, months_key.quantity)
 
     bulk.find(lookup).update({'$inc': {due: delta, amount_item: delta,
                                        quantity_item: quantity}})

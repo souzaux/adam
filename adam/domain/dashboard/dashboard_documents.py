@@ -8,19 +8,26 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from adam.domain.dashboard.common import month_series, year, year_key
+from collections import namedtuple
+from adam.domain.dashboard.common import month_series, year, key as common_key
 from adam.domain.common import base_def, base_schema
 
+SchemaKey = namedtuple('SchemaKey', 'invoices, orders, year, company')
+key = SchemaKey(
+    invoices='i',
+    orders='o',
+    year=common_key.year,
+    company=common_key.company
+)
+
 # TODO db index on company+year
-invoices_key = 'i'
-orders_key = 'o'
 
 url = 'dashboard-documents'
 
 _schema = {
-    year_key: year,
-    invoices_key: month_series,                # invoices
-    orders_key: month_series,                  # orders
+    key.year: year,
+    key.invoices: month_series,                # invoices
+    key.orders: month_series,                  # orders
 }
 _schema.update(base_schema)
 

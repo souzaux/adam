@@ -8,16 +8,22 @@
     :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
+from collections import namedtuple
 from common import base_schema, required_string
 
-token_key = 't'
-roles_key = 'r'
+SchemaKey = namedtuple('SchemaKey', 'token, roles, username, password')
+key = SchemaKey(
+    username='u',
+    password='pw',
+    token='t',
+    roles='r'
+)
 
 _schema = {
-    'u': required_string,   # username
-    'p': required_string,   # password
-    't': required_string,   # token
-    'r': {                  # role
+    key.username: required_string,
+    key.password: required_string,
+    key.token: required_string,
+    key.roles: {
         'type': 'list',
         'allowed': ['admin', 'app', 'user'],
         'required': True,

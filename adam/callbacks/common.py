@@ -10,7 +10,7 @@
 """
 from flask import current_app as app
 
-from adam.domain.dashboard.common import amount_key, quantity_key
+from adam.domain.dashboard.common import key
 
 
 def auth(resource):
@@ -24,4 +24,4 @@ def auth(resource):
 
 def empty_month_series():
     """ Return an empty month series for the dashboards """
-    return [{amount_key: 0, quantity_key: 0} for k in range(12)]
+    return [{key.amount: 0, key.quantity: 0} for k in range(12)]

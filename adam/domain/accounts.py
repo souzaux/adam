@@ -8,20 +8,27 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from common import base_def, base_schema, required_datetime, required_integer,\
-    amount_key
+from collections import namedtuple
+from common import key as common_key, required_datetime, required_integer, \
+    base_def, base_schema
 
-date_key = 'd'
-type_key = 't'
-payable_key = 'p'
-receivable_key = 'r'
+SchemaKey = namedtuple('SchemaKey', 'date, amount, type, payable, ' +
+                       'receivable, company')
+key = SchemaKey(
+    date=common_key.date,
+    amount=common_key.amount,
+    type=common_key.type,
+    payable='p',
+    receivable='r',
+    company=common_key.company
+)
 
 _schema = {
-    date_key: required_datetime,              # account date
-    amount_key: required_integer,             # amount
-    type_key: {                               # p = payable; r = receivable
+    key.date: required_datetime,              # account date
+    key.amount: required_integer,             # amount
+    key.type: {                               # p = payable; r = receivable
         'type': 'string',
-        'allowed': [payable_key, receivable_key],
+        'allowed': [key.payable, key.receivable],
         'required': True
     }
     }

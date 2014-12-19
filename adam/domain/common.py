@@ -5,12 +5,22 @@
 
     Commonly used schema and domain definitions.
 
-    :copyright: (c) 2013 by Nicola Iarocci and CIR2000.
+    :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-company_key = 'c'
-account_key = 'ac'
-amount_key = 'a'
+from collections import namedtuple
+
+SchemaKey = namedtuple('SchemaKey', 'company, account, amount, date, type, ' +
+                       'total, quantity')
+key = SchemaKey(
+    company='c',
+    account='ac',
+    amount='a',
+    date='d',
+    type='ty',
+    total='t',
+    quantity='q'
+)
 
 # common data types
 required_integer = {
@@ -46,10 +56,10 @@ company = {
 
 # most resources share the following settings
 base_def = {
-    'auth_field': account_key
+    'auth_field': key.account
 }
 
 # most collections share the following schema definition
 base_schema = {
-    company_key: company,
+    key.company: company,
 }

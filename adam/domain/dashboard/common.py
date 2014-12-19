@@ -1,15 +1,21 @@
-from adam.domain.common import required_integer, amount_key
+from collections import namedtuple
+from adam.domain.common import required_integer, key as common_key
 
 # TODO consider removing the unique constraint on 'year' (for peformance)
+SchemaKey = namedtuple('SchemaKey', 'year, quantity, amount, company')
+key = SchemaKey(
+    year='y',
+    quantity=common_key.quantity,
+    amount=common_key.amount,
+    company=common_key.company
+)
 
-year_key = 'y'
 year = {
     'type': 'integer',
     'required': True,
     'unique': True,
 }
 
-quantity_key = 'q'
 month_series = {
     'type': 'list',
     'maxlength': 12,
@@ -18,8 +24,8 @@ month_series = {
     'schema': {
         'type': 'dict',
         'schema': {
-            amount_key: required_integer,        # amount
-            quantity_key: required_integer,      # quantity
+            key.amount: required_integer,        # amount
+            key.quantity: required_integer,      # quantity
         }
     }
 }
