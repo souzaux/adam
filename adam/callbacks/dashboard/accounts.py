@@ -34,10 +34,10 @@ import datetime  # noqa
 """
 
 
-def accounts_insert(accounts):
+def accounts_insert(new_accounts):
     """ Accounts have been inserted; update dashboard accordingly """
 
-    for account in accounts:
+    for account in new_accounts:
         delta = account[accounts.key.amount]
         _dashboard_update(delta, 1, *_meta(account))
 
@@ -76,7 +76,7 @@ def _dashboard_update(delta, quantity, date, company, type):
             key.month_series: array
         },
         key.receivable: {
-            key.credi_due: 0,
+            key.credit_due: 0,
             key.month_series: array
         }
     }
