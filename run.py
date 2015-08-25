@@ -22,16 +22,13 @@ settings_file = os.path.join(this_directory, 'settings.py')
 port = os.environ.get('PORT')
 if port:
     # Heroku
-    auth = Auth
     host = '0.0.0.0'
     port = int(port)
 else:
-    # no auth when running in local for test purposes
-    auth = None
     host = '127.0.0.1'
     port = 5000
 
-app = Eve(auth=auth, settings=settings_file)
+app = Eve(auth=Auth, settings=settings_file)
 
 # Attach callbacks event hooks.
 dashboard.init(app)
