@@ -19,7 +19,7 @@ import adam.domain.documents as docs
 from adam.domain.dashboard.common import key as months_key
 from adam.domain.dashboard.dashboard_documents import key
 
-from adam.callbacks.common import auth
+from adam.callbacks.common import auth, empty_month_series
 
 import datetime  # noqa
 
@@ -68,9 +68,12 @@ def _dashboard_update(delta, quantity, date, company, type):
     year, month = date.year, date.month-1
     lookup = {key.company: company, key.year: year}
 
-    array = [{months_key.amount: 0, months_key.quantity: 0} for k in range(12)]
-    empty = {key.company: company, key.year: year, key.invoices: array,
-             key.orders: array}
+    empty = {
+        key.company: company,
+        key.year: year,
+        key.invoices: empty_month_series(),
+        key.orders: empty_month_series()
+    }
 
     auth_field, auth_value = auth('documents')
     if auth_value:
