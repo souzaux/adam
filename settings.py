@@ -43,6 +43,9 @@ HATEOAS = False
 # See http://python-eve.org/features#soft-delete.
 SOFT_DELETE = True
 
+# We don't want pagination enabled.
+PAGINATION = False
+
 # We want the whole document back with POST/PATCH/PUT responses.
 BANDWIDTH_SAVER = False
 
