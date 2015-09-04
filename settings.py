@@ -39,6 +39,10 @@ ITEM_METHODS = ['GET', 'PATCH', 'DELETE', 'PUT']
 # Disable HATEOAS
 HATEOAS = False
 
+# Switch soft deletes on. Requires Eve 0.6+.
+# See http://python-eve.org/features#soft-delete.
+SOFT_DELETE = True
+
 # We want the whole document back with POST/PATCH/PUT responses.
 BANDWIDTH_SAVER = False
 
