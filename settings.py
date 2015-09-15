@@ -49,5 +49,8 @@ PAGINATION = False
 # We want the whole document back with POST/PATCH/PUT responses.
 BANDWIDTH_SAVER = False
 
+# Enable server information at the API homepage
+INFO = '_info'
+
 # Set the API domain
 DOMAIN = domain.DOMAIN
