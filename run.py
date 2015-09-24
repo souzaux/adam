@@ -11,7 +11,7 @@
 import os
 
 from eve import Eve
-from adam.auth import Auth
+from adam.oauth2 import BearerAuth
 from adam.callbacks.dashboard import dashboard
 
 # Load the settings file using a robust path so it works when
@@ -28,7 +28,7 @@ else:
     host = '127.0.0.1'
     port = 5000
 
-app = Eve(auth=Auth, settings=settings_file)
+app = Eve(auth=BearerAuth, settings=settings_file)
 
 # Attach callbacks event hooks.
 dashboard.init(app)
