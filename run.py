@@ -9,10 +9,11 @@
     :license: BSD, see LICENSE for more details.
 """
 import os
-
+import sys
 from eve import Eve
 from adam.oauth2 import BearerAuth
 from adam.callbacks.dashboard import dashboard
+
 
 # Load the settings file using a robust path so it works when
 # the script is imported from the test suite.
@@ -28,7 +29,9 @@ else:
     host = '127.0.0.1'
     port = 5000
 
-app = Eve(auth=BearerAuth, settings=settings_file)
+
+app = Eve(auth=None if 'noauth' in sys.argv else BearerAuth,
+          settings=settings_file)
 
 # Attach callbacks event hooks.
 dashboard.init(app)
