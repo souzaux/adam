@@ -11,7 +11,7 @@
 from common import required_string, base_schema, base_def
 
 _schema = {
-    'n': required_string,                       # name
+    'name': required_string,                       # name
 }
 _schema.update(base_schema)
 

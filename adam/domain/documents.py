@@ -10,7 +10,7 @@
 """
 from collections import namedtuple
 from common import base_def, base_schema, required_datetime, required_integer,\
-    key as common_key
+    key as common_key, required_string
 
 SchemaKey = namedtuple('SchemaKey', 'company, total, date, type')
 key = SchemaKey(
@@ -23,8 +23,8 @@ key = SchemaKey(
 DocumentTypes = namedtuple('DocumentTypes', 'customer_order, invoice')
 
 doctype = DocumentTypes(
-    customer_order='co',
-    invoice='i'
+    customer_order=10,
+    invoice=4
 )
 
 
@@ -34,9 +34,30 @@ _schema = {
     key.date: required_datetime,             # docment date
     key.total: required_integer,             # total amount
     key.type: {
-        'type': 'string',
+        'type': 'integer',
+        'min': 1,
+        'max': 22,
         'allowed': doctype._asdict().values(),
         'required': True
+    },
+    'contact': {
+        'type': 'dict',
+        'required': True,
+        'schema': {
+            'name': required_string,
+            'vat': required_string,
+            'address': {'type': 'string'}
+        }
+    },
+    'items': {
+        'type': 'list',
+        'schema': {
+            'type': 'dict',
+            'schema': {
+                'sku': {'type': 'string'},
+                'description': required_string
+            }
+        }
     }
 }
 _schema.update(base_schema)
@@ -44,5 +65,6 @@ _schema.update(base_schema)
 definition = {
     'url': url,
     'schema': _schema,
+    #'allow_unknown': True
 }
 definition.update(base_def)

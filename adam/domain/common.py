@@ -13,13 +13,13 @@ from collections import namedtuple
 SchemaKey = namedtuple('SchemaKey', 'company, account, amount, date, type, ' +
                        'total, quantity')
 key = SchemaKey(
-    company='c',
-    account='ac',
-    amount='a',
-    date='d',
-    type='ty',
-    total='t',
-    quantity='q'
+    company='company_id',
+    account='account',
+    amount='amount',
+    date='date',
+    type='type',
+    total='total',
+    quantity='quantity'
 )
 
 # common data types

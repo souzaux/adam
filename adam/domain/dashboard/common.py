@@ -4,7 +4,7 @@ from adam.domain.common import required_integer, key as common_key
 # TODO consider removing the unique constraint on 'year' (for peformance)
 SchemaKey = namedtuple('SchemaKey', 'year, quantity, amount, company')
 key = SchemaKey(
-    year='y',
+    year='year',
     quantity=common_key.quantity,
     amount=common_key.amount,
     company=common_key.company

@@ -12,8 +12,8 @@ from common import required_string, base_def
 
 _schema = {
     # company id ('id')
-    'n': required_string,                       # name
-    'p': {'type': 'string', 'nullable': True},  # password
+    'name': required_string,                       # name
+    'password': {'type': 'string', 'nullable': True},  # password
 }
 
 definition = {

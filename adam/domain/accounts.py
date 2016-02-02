@@ -18,8 +18,8 @@ key = SchemaKey(
     date=common_key.date,
     amount=common_key.amount,
     type=common_key.type,
-    payable='p',
-    receivable='r',
+    payable='payable',
+    receivable='receivable',
     company=common_key.company
 )
 

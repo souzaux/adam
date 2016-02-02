@@ -13,10 +13,10 @@ from common import base_schema, required_string
 
 SchemaKey = namedtuple('SchemaKey', 'token, roles, username, password')
 key = SchemaKey(
-    username='u',
-    password='pw',
-    token='t',
-    roles='r'
+    username='username',
+    password='password',
+    token='token',
+    roles='toles'
 )
 
 _schema = {
@@ -38,7 +38,7 @@ definition = {
     'cache_expires': 0,
     'additional_lookup': {
         'url': 'regex("[\w]+")',     # to be unique
-        'field': 'u'
+        'field': key.username
     },
     'schema': _schema,
 }

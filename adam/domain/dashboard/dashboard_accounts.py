@@ -19,9 +19,9 @@ from adam.domain.accounts import key as accounts_key
 SchemaKey = namedtuple('SchemaKey', 'credit_due, debit_due, month_series,'
                        + 'year, payable, receivable, company')
 key = SchemaKey(
-    credit_due='cd',
-    debit_due='dd',
-    month_series='s',
+    credit_due='credit_due',
+    debit_due='debit_due',
+    month_series='month_series',
     year=db_key.year,
     payable=accounts_key.payable,
     receivable=accounts_key.receivable,

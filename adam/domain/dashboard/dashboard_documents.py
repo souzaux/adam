@@ -14,8 +14,8 @@ from adam.domain.common import base_def, base_schema
 
 SchemaKey = namedtuple('SchemaKey', 'invoices, orders, year, company')
 key = SchemaKey(
-    invoices='i',
-    orders='o',
+    invoices='invoices',
+    orders='orders',
     year=common_key.year,
     company=common_key.company
 )
