@@ -69,6 +69,12 @@ company = {
     },
 }
 
+contact_minimal = {
+    'name': required_string,
+    'vat': unique_string,
+    'address': {'type': 'string'}
+}
+
 # most resources share the following settings
 base_def = {
     'auth_field': key.account

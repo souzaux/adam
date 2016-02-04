@@ -9,8 +9,8 @@
     :license: BSD, see LICENSE for more details.
 """
 from collections import namedtuple
-from common import base_def, base_schema, required_datetime, required_integer,\
-    key as common_key, required_string
+from common import base_def, base_schema, required_datetime, \
+    key as common_key, required_string, topology, contact_minimal
 
 SchemaKey = namedtuple('SchemaKey', 'company, total, date, type')
 key = SchemaKey(
@@ -28,11 +28,30 @@ doctype = DocumentTypes(
 )
 
 
-url = 'documents'
+url = topology.documents
+
+contact = {
+    'type': 'dict',
+    'required': True,
+    'schema': {
+        'contact_id': {
+            'type': 'objectid',
+            'data_relation': {
+                'resource': topology.contacts,
+                'field': '_id',
+            }
+        }
+    }
+}
+contact['schema'].update(contact_minimal)
+contact['schema']['vat']['unique'] = False
 
 _schema = {
     key.date: required_datetime,             # docment date
-    key.total: required_integer,             # total amount
+    key.total: {
+        'type': 'integer',
+        'default': 0,
+    },             # total amount
     key.type: {
         'type': 'integer',
         'min': 1,
@@ -40,15 +59,7 @@ _schema = {
         'allowed': doctype._asdict().values(),
         'required': True
     },
-    'contact': {
-        'type': 'dict',
-        'required': True,
-        'schema': {
-            'name': required_string,
-            'vat': required_string,
-            'address': {'type': 'string'}
-        }
-    },
+    'contact': contact,
     'items': {
         'type': 'list',
         'schema': {
@@ -65,6 +76,6 @@ _schema.update(base_schema)
 definition = {
     'url': url,
     'schema': _schema,
-    #'allow_unknown': True
+    # 'allow_unknown': True
 }
 definition.update(base_def)

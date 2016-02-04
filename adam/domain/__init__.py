@@ -12,6 +12,7 @@ import accounts
 import companies
 import countries
 import documents
+import contacts
 import user_accounts
 from common import topology
 from dashboard import dashboard_accounts, dashboard_documents
@@ -25,4 +26,5 @@ DOMAIN = {
     topology.accounts: user_accounts.definition,
     topology.documents: documents.definition,
     topology.accounts: accounts.definition,
+    topology.contacts: contacts.definition,
 }
