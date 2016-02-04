@@ -10,6 +10,21 @@
 """
 from collections import namedtuple
 
+TopologyKey = namedtuple('TopologyKey', 'countries, companies, ' +
+                         'dashboard_accounts, dashboard_documents, ' +
+                         'documents, accounts, contacts')
+
+topology = TopologyKey(
+    countries='countries',
+    companies='companies',
+    contacts='contacts',
+    accounts='accounts',
+    documents='documents',
+    dashboard_accounts='dashboard-accounts',
+    dashboard_documents='dashboard-documents'
+)
+
+
 SchemaKey = namedtuple('SchemaKey', 'company, account, amount, date, type, ' +
                        'total, quantity')
 key = SchemaKey(
@@ -49,7 +64,7 @@ company = {
     'type': 'objectid',
     'required': True,
     'data_relation': {
-        'resource': 'companies',
+        'resource': topology.companies,
         'field': '_id',
     },
 }

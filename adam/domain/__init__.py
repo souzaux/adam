@@ -8,19 +8,21 @@
     :copyright: (c) 2015 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-import countries
-import companies
-import user_accounts
-import documents
 import accounts
+import companies
+import countries
+import documents
+import user_accounts
+from common import topology
 from dashboard import dashboard_accounts, dashboard_documents
 
+
 DOMAIN = {
-    'countries': countries.definition,
-    'companies': companies.definition,
-    'dashboard-accounts': dashboard_accounts.definition,
-    'dashboard-documents': dashboard_documents.definition,
-    'user_accounts': user_accounts.definition,
-    'documents': documents.definition,
-    'accounts': accounts.definition,
+    topology.countries: countries.definition,
+    topology.companies: companies.definition,
+    topology.dashboard_accounts: dashboard_accounts.definition,
+    topology.dashboard_documents: dashboard_documents.definition,
+    topology.accounts: user_accounts.definition,
+    topology.documents: documents.definition,
+    topology.accounts: accounts.definition,
 }
