@@ -69,11 +69,34 @@ company = {
     },
 }
 
+address = {
+    'type': 'dict',
+    'schema': {
+        'street': {'type': 'string'},
+        'town': {'type': 'string'},
+        'province': {'type': 'string'},
+        'state': {'type': 'string'},
+        'postal_code': {'type': 'string'},
+    }
+}
+
+address_ex = {
+    'type': 'dict',
+    'schema': {
+        'phone': {'type': 'string'},
+        'mobile': {'type': 'string'},
+        'fax': {'type': 'string'},
+        'mail': {'type': 'string'},
+        'pec_mail': {'type': 'string'},
+    }
+}
+address_ex['schema'].update(address['schema'])
+
 contact_minimal = {
     'name': required_string,
-    'vat': unique_string,
-    'address': {'type': 'string'}
+    'vat': {'type': 'string', 'unique': True},
 }
+contact_minimal.update(address['schema'])
 
 # most resources share the following settings
 base_def = {

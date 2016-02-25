@@ -10,7 +10,7 @@
 """
 from collections import namedtuple
 from common import base_def, base_schema, key as common_key, topology, \
-    contact_minimal
+    address_ex, required_string
 
 SchemaKey = namedtuple('SchemaKey', 'company, total, date, type')
 key = SchemaKey(
@@ -20,20 +20,16 @@ key = SchemaKey(
     type=common_key.type
 )
 
-DocumentTypes = namedtuple('DocumentTypes', 'customer_order, invoice')
-
-doctype = DocumentTypes(
-    customer_order=10,
-    invoice=4
-)
-
-
 url = topology.contacts
 
 # TODO add missing schema fields besides contact_minimal ones.
-_schema = {}
+_schema = {
+    'name': required_string,
+    'vat': {'type': 'string'},
+    #'vat': {'type': 'string', 'unique': True},
+    'address': address_ex
+}
 
-_schema.update(contact_minimal)
 _schema.update(base_schema)
 
 definition = {
