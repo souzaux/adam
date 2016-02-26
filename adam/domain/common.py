@@ -74,8 +74,8 @@ address = {
     'schema': {
         'street': {'type': 'string'},
         'town': {'type': 'string'},
-        'province': {'type': 'string'},
-        'state': {'type': 'string'},
+        'state_or_province': {'type': 'string'},
+        'country': {'type': 'string'},
         'postal_code': {'type': 'string'},
     }
 }
