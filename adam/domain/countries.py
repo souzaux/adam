@@ -10,6 +10,9 @@
 """
 from common import required_string, base_schema, base_def
 
+# TODO refactor this endpoint to be read-only and 'static' (serve from same
+# datasource no matter the user).
+
 _schema = {
     'name': required_string,                       # name
 }
