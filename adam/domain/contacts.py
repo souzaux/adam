@@ -10,7 +10,7 @@
 """
 from collections import namedtuple
 from common import base_def, base_schema, key as common_key, topology, \
-    address_ex, required_string
+    address_ex, required_string, currency
 
 SchemaKey = namedtuple('SchemaKey', 'company, total, date, type')
 key = SchemaKey(
@@ -27,7 +27,9 @@ _schema = {
     'name': required_string,
     'vat': {'type': 'string'},
     #'vat': {'type': 'string', 'unique': True},
-    'address': address_ex
+    'market_area': {'type': 'string'},
+    'address': address_ex,
+    'currency': currency,
 }
 
 _schema.update(base_schema)

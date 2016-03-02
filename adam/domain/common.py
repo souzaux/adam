@@ -69,6 +69,15 @@ company = {
     },
 }
 
+currency = {
+    'type': 'dict',
+    'schema': {
+        'name': {'type': 'string'},
+        'code': {'type': 'string'} ,
+        'symbol': {'type': 'string'}
+    }
+}
+
 address = {
     'type': 'dict',
     'schema': {
