@@ -40,6 +40,7 @@ _is = {
 _schema = {
     'name': required_string,
     'vat': {'type': 'string'},
+    'id_code': {'type': 'string'},
     #'vat': {'type': 'string', 'unique': True},
     'market_area': {'type': 'string'},
     'address': address_ex,
