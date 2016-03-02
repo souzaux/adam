@@ -59,6 +59,11 @@ required_datetime = {
     'required': True
 }
 
+required_boolean = {
+    'type': 'boolean',
+    'required': True,
+}
+
 # common fields
 company = {
     'type': 'objectid',
