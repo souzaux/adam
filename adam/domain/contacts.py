@@ -36,6 +36,17 @@ _is = {
     }
 }
 
+# TODO validation of iban and bic_swift should be done against static banks
+# service when available.
+_bank = {
+    'type': 'dict',
+    'schema': {
+        'name': required_string,
+        'iban': {'type': 'string'},
+        'bic_swift': {'type': 'string'}
+    }
+}
+
 # TODO add missing schema fields besides contact_minimal ones.
 _schema = {
     'name': required_string,
@@ -47,6 +58,7 @@ _schema = {
     'address': address_ex,
     'currency': currency,
     'is': _is,
+    'bank': _bank,
 }
 
 _schema.update(base_schema)
