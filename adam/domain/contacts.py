@@ -42,7 +42,7 @@ _is = {
 _bank = {
     'type': 'dict',
     'schema': {
-        'name': required_string,
+        'name': {'type': 'string'},
         'iban': {'type': 'string'},
         'bic_swift': {'type': 'string'}
     }
