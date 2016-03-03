@@ -8,6 +8,7 @@
     :copyright: (c) 2016 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
+import copy
 from collections import namedtuple
 from common import base_def, base_schema, key as common_key, topology, \
     address_ex, required_string, currency, required_boolean
@@ -47,18 +48,26 @@ _bank = {
     }
 }
 
+_other_address = copy.deepcopy(address_ex)
+_other_address['schema']['name'] = required_string
+
 # TODO add missing schema fields besides contact_minimal ones.
 _schema = {
     'name': required_string,
     'vat': {'type': 'string'},
     'id_code': {'type': 'string'},
     'tax_id_code': {'type': 'string'},
+    'pa_index': {'type': 'string'},
     #'vat': {'type': 'string', 'unique': True},
     'market_area': {'type': 'string'},
     'address': address_ex,
     'currency': currency,
     'is': _is,
     'bank': _bank,
+    'other_addresses': {
+        'type': 'list',
+        'schema': _other_address
+    }
 }
 
 _schema.update(base_schema)
