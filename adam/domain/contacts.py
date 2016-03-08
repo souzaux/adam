@@ -56,7 +56,7 @@ _schema = {
     'name': required_string,
     'vat': {'type': 'string'},
     'id_code': {'type': 'string'},
-    'tax_id_code': {'type': 'string'},
+    'tax_id_number': {'type': 'string'},
     'pa_index': {'type': 'string'},
     #'vat': {'type': 'string', 'unique': True},
     'market_area': {'type': 'string'},
