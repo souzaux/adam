@@ -11,6 +11,7 @@
 import os
 import sys
 from eve import Eve
+from adam.validation import Validator
 from adam.oauth2 import BearerAuth
 from adam.callbacks.dashboard import dashboard
 
@@ -31,7 +32,7 @@ else:
 
 
 app = Eve(auth=None if 'noauth' in sys.argv else BearerAuth,
-          settings=settings_file)
+          settings=settings_file, validator=Validator)
 
 # Attach callbacks event hooks.
 dashboard.init(app)

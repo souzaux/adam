@@ -55,7 +55,7 @@ _other_address['schema']['name'] = required_string
 _schema = {
     'name': required_string,
     #'vat': {'type': 'string'},
-    'vat': {'type': 'string', 'unique': True},
+    'vat': {'type': 'vat', 'unique': True},
     'id_code': {'type': 'string', 'unique': True},
     'tax_id_number': {'type': 'string'},
     'pa_index': {'type': 'string'},
