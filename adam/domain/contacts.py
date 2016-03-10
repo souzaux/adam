@@ -45,6 +45,8 @@ _bank = {
     'type': 'dict',
     'schema': {
         'name': {'type': 'string'},
+        # TODO switch to coerce to_upper when Cerberus 1.0 is released
+        # 'iban': {'type': 'iban', 'coerce': _to_upper},
         'iban': {'type': 'iban'},
         'bic_swift': {'type': 'swift'}
     }
