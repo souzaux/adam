@@ -51,13 +51,14 @@ _bank = {
 _other_address = copy.deepcopy(address_ex)
 _other_address['schema']['name'] = required_string
 
+_to_upper = lambda v: v.upper()  # noqa
+
 # TODO add missing schema fields besides contact_minimal ones.
 _schema = {
     'name': required_string,
-    #'vat': {'type': 'string'},
-    'vat': {'type': 'vat', 'unique': True},
+    'vat': {'type': 'vat', 'unique': True, 'coerce': _to_upper},
     'id_code': {'type': 'string', 'unique': True},
-    'tax_id_number': {'type': 'string'},
+    'tax_id_number': {'type': 'tax_id_number', 'coerce': _to_upper},
     'pa_index': {'type': 'string'},
     'market_area': {'type': 'string'},
     'address': address_ex,

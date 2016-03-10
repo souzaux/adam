@@ -21,11 +21,46 @@ class TestValidator(TestCase):
     def test_vat_validation(self):
         self.validator.schema = {'vat': {'type': 'vat'}}
 
-        self.assertTrue(self.validator({'vat': 'IT01180680397'}))
-        self.assertTrue(self.validator({'vat': 'IT02182030391'}))
-        self.assertTrue(self.validator({'vat': 'IT92078790398'}))
+        valid = [
+            'IT01180680397',
+            'IT02182030391',
+            'IT92078790398'
+        ]
+        for challenge in valid:
+            self.assertTrue(self.validator({'vat': challenge}))
 
-        self.assertFalse(self.validator({'vat': '01180680397'}))
-        self.assertFalse(self.validator({'vat': 'UK01180680397'}))
-        self.assertFalse(self.validator({'vat': 'IT1234567890'}))
-        self.assertFalse(self.validator({'vat': 'A'}))
+        invalid = [
+            '01180680397',
+            'UK01180680397',
+            'IT1234567890',
+            'A'
+        ]
+        for challnge in invalid:
+            self.assertFalse(self.validator({'vat': challenge}))
+
+    def test_tax_id_number_validation(self):
+        self.validator.schema = {'id': {'type': 'tax_id_number'}}
+
+        valid = [
+            'RCCNCL70M27B519E',
+            'grdsfn66d17h199k',
+            '92078790398',
+            '95052810132',
+            '94078890541',
+            '90029830669',
+            '81004300067',
+            '80064390372',
+            '80028050583',
+            '80007770102',
+            '80003350891'
+        ]
+        for challenge in valid:
+            self.assertTrue(self.validator({'id': challenge}))
+
+        invalid = [
+            None,
+            'A',
+            '12345678901234567'
+        ]
+        for challenge in invalid:
+            self.assertFalse(self.validator({'id': challenge}))
