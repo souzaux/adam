@@ -46,7 +46,7 @@ _bank = {
     'schema': {
         'name': {'type': 'string'},
         'iban': {'type': 'iban'},
-        'bic_swift': {'type': 'string'}
+        'bic_swift': {'type': 'swift'}
     }
 }
 

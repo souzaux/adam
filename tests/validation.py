@@ -83,3 +83,22 @@ class TestValidator(TestCase):
         ]
         for challenge in invalid:
             self.assertFalse(self.validator({'iban': challenge}))
+
+    def test_swift_validation(self):
+        self.validator.schema = {'swift': {'type': 'swift'}}
+
+        valid = [
+            'ABCOITMM',
+            'ICRAITRRL90',
+            'CRGEITGG183'
+        ]
+        for challenge in valid:
+            self.assertTrue(self.validator({'swift': challenge}))
+
+        invalid = [
+            '',
+            'ABC',
+            '12345678901'
+        ]
+        for challenge in invalid:
+            self.assertFalse(self.validator({'swift': challenge}))

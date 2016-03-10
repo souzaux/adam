@@ -12,6 +12,11 @@ import re
 
 
 class Validator(Validator):
+    def _validate_type_swift(self, field, value):
+        """ Validate SWIFT/BIC bank codes """
+        if not re.match('^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$', value):
+            self._error(field, 'Invalid SWIFT/BIC code.')
+
     def _validate_type_iban(self, field, value):
         """ Validate value bank numbers """
 
