@@ -8,9 +8,50 @@
     :license: BSD, see LICENSE for more details.
 """
 from eve.io.mongo import Validator
+import re
 
 
 class Validator(Validator):
+    def _validate_type_iban(self, field, value):
+        """ Validate value bank numbers """
+
+        if value is None:
+            return
+
+        if value.startswith('IT'):
+            self._validate_italian_iban_number(field, value)
+        else:
+            self._error(field, 'Unsupported or unknown IBAN format.')
+
+    def _validate_italian_iban_number(self, field, value):
+        iban = value.replace(' ', '')
+
+        if len(iban) != 27:
+            self._error(field, 'Italian IBAN number should be 27 characters '
+                        'long.')
+            return
+
+        if not re.match('^[A-Z0-9]', iban):
+            self._error(field, 'Only characters and numbers allowed.')
+
+        bank = iban[4:] + iban[:4]
+        ascii_shift = 55
+
+        s = ''
+        for char in bank:
+            v = ord(char) - ascii_shift if char.isalpha() else int(char)
+            s += str(v)
+
+        checksum = int(s[0])
+        for i in range(1, len(s)):
+            v = int(s[i])
+            checksum *= 10
+            checksum += v
+            checksum %= 97
+
+        if checksum != 1:
+            self._error(field, 'Checksum mismatch for an Italian IBAN.')
+
     def _validate_type_tax_id_number(self, field, value):
         """ Validate fiscal code numbers """
 
@@ -50,15 +91,15 @@ class Validator(Validator):
         if value.startswith('IT'):
             self._validate_italian_vat_number(field, value)
         else:
-            self._error(field, "Unsupported VAT number format.")
+            self._error(field, 'Unsupported VAT number format.')
 
     def _validate_italian_vat_number(self, field, value):
         """ Validate Italian VAT numbers """
 
         value = value.lstrip('IT')
         if len(value) != 11:
-            self._error(field, "Italian VAT number must have 11 numeric "
-                        "charactters.")
+            self._error(field, 'Italian VAT number must have 11 numeric '
+                        'charactters.')
             return False
 
         tot = 0
@@ -74,7 +115,7 @@ class Validator(Validator):
 
         if not ((tot % 10 == 0 and checksum == 0) or
                 (10 - (tot % 10) == checksum)):
-            self._error(field, "Invalid Italian VAT number.")
+            self._error(field, 'Invalid Italian VAT number.')
             return False
 
         return True

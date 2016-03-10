@@ -35,7 +35,7 @@ class TestValidator(TestCase):
             'IT1234567890',
             'A'
         ]
-        for challnge in invalid:
+        for challenge in invalid:
             self.assertFalse(self.validator({'vat': challenge}))
 
     def test_tax_id_number_validation(self):
@@ -64,3 +64,22 @@ class TestValidator(TestCase):
         ]
         for challenge in invalid:
             self.assertFalse(self.validator({'id': challenge}))
+
+    def test_iban_validation(self):
+        self.validator.schema = {'iban': {'type': 'iban'}}
+
+        valid = [
+            'IT88T1927501600CC0010110180',
+            'IT 88T 19275016 00CC001 0110180',
+        ]
+        for challenge in valid:
+            self.assertTrue(self.validator({'iban': challenge}))
+
+        invalid = [
+            None,
+            '',
+            'ABC',
+            '88T1927501600CC0010110180'
+        ]
+        for challenge in invalid:
+            self.assertFalse(self.validator({'iban': challenge}))

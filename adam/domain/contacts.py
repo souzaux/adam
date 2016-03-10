@@ -23,6 +23,8 @@ key = SchemaKey(
 
 url = topology.contacts
 
+_to_upper = lambda v: v.upper()  # noqa
+
 _is = {
     'type': 'dict',
     'required': True,
@@ -43,15 +45,13 @@ _bank = {
     'type': 'dict',
     'schema': {
         'name': {'type': 'string'},
-        'iban': {'type': 'string'},
+        'iban': {'type': 'iban'},
         'bic_swift': {'type': 'string'}
     }
 }
 
 _other_address = copy.deepcopy(address_ex)
 _other_address['schema']['name'] = required_string
-
-_to_upper = lambda v: v.upper()  # noqa
 
 # TODO add missing schema fields besides contact_minimal ones.
 _schema = {
