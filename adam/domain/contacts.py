@@ -54,11 +54,11 @@ _other_address['schema']['name'] = required_string
 # TODO add missing schema fields besides contact_minimal ones.
 _schema = {
     'name': required_string,
-    'vat': {'type': 'string'},
-    'id_code': {'type': 'string'},
+    #'vat': {'type': 'string'},
+    'vat': {'type': 'string', 'unique': True},
+    'id_code': {'type': 'string', 'unique': True},
     'tax_id_number': {'type': 'string'},
     'pa_index': {'type': 'string'},
-    #'vat': {'type': 'string', 'unique': True},
     'market_area': {'type': 'string'},
     'address': address_ex,
     'currency': currency,
