@@ -39,8 +39,6 @@ _is = {
     }
 }
 
-# TODO validation of iban and bic_swift should be done against static banks
-# service when available.
 _bank = {
     'type': 'dict',
     'schema': {
@@ -55,13 +53,12 @@ _bank = {
 _other_address = copy.deepcopy(address_ex)
 _other_address['schema']['name'] = required_string
 
-# TODO add missing schema fields besides contact_minimal ones.
 _schema = {
     'name': required_string,
     'vat': {'type': 'vat', 'unique': True, 'coerce': _to_upper},
     'id_code': {'type': 'string', 'unique': True},
     'tax_id_number': {'type': 'tax_id_number', 'coerce': _to_upper},
-    'pa_index': {'type': 'string'},
+    'pa_index': {'type': 'string', 'minlength': 6, 'maxlength': 6},
     'market_area': {'type': 'string'},
     'address': address_ex,
     'currency': currency,
