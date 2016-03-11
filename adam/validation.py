@@ -12,6 +12,13 @@ import re
 
 
 class Validator(Validator):
+    def _validate_type_email(self, field, value):
+        # see http://stackoverflow.com/a/8022584/323269 for the reasoning
+        # behind such a lightweight email check.
+        pattern = "[^@]+@[^@]+\.[^@]+"
+        if not re.match(pattern, value):
+            self._error(field, 'Invalid Email')
+
     def _validate_type_swift(self, field, value):
         """ Validate SWIFT/BIC bank codes """
         if not re.match('^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$', value):

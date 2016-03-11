@@ -18,6 +18,29 @@ class TestValidator(TestCase):
         super(TestValidator, self).setUp()
         self.validator = Validator()
 
+    def test_email_validation(self):
+        self.validator.schema = {'mail': {'type': 'email'}}
+
+        valid = [
+            'test@iana.org', 'a@iana.org', 'test@nominet.org.uk',
+            'test@about.museum', 'test@e.com', 'test@iana.a',
+            'test.test@iana.org', '!#$%&`*+/=?^`{|}~@iana.org' '123@iana.org',
+            'test@123.com', 'test@iana.123', 'test@255.255.255.255',
+            'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghiklm@iana.org',
+            'test@mason-dixon.com', 'test@c--n.com', 'xn--test@iana.org',
+            'test@test.com',
+        ]
+        for challenge in valid:
+            self.assertTrue(self.validator({'mail': challenge}))
+
+        invalid = [
+            '', 'test', '@', 'test@', '@io', '@iana.org',
+            'test..iana.org',
+            'test_exa-mple.com',
+        ]
+        for challenge in invalid:
+            self.assertFalse(self.validator({'mail': challenge}))
+
     def test_vat_validation(self):
         self.validator.schema = {'vat': {'type': 'vat'}}
 
