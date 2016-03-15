@@ -78,7 +78,7 @@ currency = {
     'type': 'dict',
     'schema': {
         'name': {'type': 'string'},
-        'code': {'type': 'string'} ,
+        'code': {'type': 'string'},
         'symbol': {'type': 'string'}
     }
 }
@@ -102,6 +102,7 @@ address_ex = {
         'fax': {'type': 'string'},
         'mail': {'type': 'string'},
         'pec_mail': {'type': 'string'},
+        'web_site': {'type': 'string'},
     }
 }
 address_ex['schema'].update(address['schema'])
