@@ -64,6 +64,8 @@ required_boolean = {
     'required': True,
 }
 
+to_upper = lambda v: v.upper()  # noqa
+
 # common fields
 company = {
     'type': 'objectid',
@@ -109,7 +111,8 @@ address_ex['schema'].update(address['schema'])
 
 contact_minimal = {
     'name': required_string,
-    'vat_id_number': {'type': 'string', 'unique': True},
+    'vat_id_number': {'type': 'vat'},
+    'tax_id_number': {'type': 'tax_id_number'},
 }
 contact_minimal.update(address['schema'])
 

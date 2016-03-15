@@ -11,7 +11,7 @@
 import copy
 from collections import namedtuple
 from common import base_def, base_schema, key as common_key, topology, \
-    address_ex, required_string, currency, required_boolean
+    address_ex, required_string, currency, required_boolean, to_upper
 
 SchemaKey = namedtuple('SchemaKey', 'company, total, date, type')
 key = SchemaKey(
@@ -22,8 +22,6 @@ key = SchemaKey(
 )
 
 url = topology.contacts
-
-_to_upper = lambda v: v.upper()  # noqa
 
 _is = {
     'type': 'dict',
@@ -56,9 +54,9 @@ _other_address['schema']['name'] = required_string
 _schema = {
     'name': required_string,
     'id_code': {'type': 'string', 'unique': True},
-    'vat_id_number': {'type': 'vat', 'unique': True, 'coerce': _to_upper},
+    'vat_id_number': {'type': 'vat', 'unique': True, 'coerce': to_upper},
     'tax_id_number': {'type': 'tax_id_number', 'unique': True,
-                      'coerce': _to_upper},
+                      'coerce': to_upper},
     'pa_index': {'type': 'string', 'minlength': 6, 'maxlength': 6},
     'market_area': {'type': 'string'},
     'address': address_ex,
