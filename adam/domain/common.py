@@ -109,7 +109,7 @@ address_ex['schema'].update(address['schema'])
 
 contact_minimal = {
     'name': required_string,
-    'vat': {'type': 'string', 'unique': True},
+    'vat_id_number': {'type': 'string', 'unique': True},
 }
 contact_minimal.update(address['schema'])
 

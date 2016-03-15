@@ -44,7 +44,7 @@ contact = {
     }
 }
 contact['schema'].update(contact_minimal)
-contact['schema']['vat']['unique'] = False
+contact['schema']['vat_id_number']['unique'] = False
 
 _schema = {
     key.date: required_datetime,             # docment date
