@@ -12,13 +12,14 @@ from collections import namedtuple
 
 TopologyKey = namedtuple('TopologyKey', 'countries, companies, ' +
                          'dashboard_accounts, dashboard_documents, ' +
-                         'documents, accounts, contacts')
+                         'documents, accounts, contacts, vat')
 
 topology = TopologyKey(
     countries='countries',
     companies='companies',
     contacts='contacts',
     accounts='accounts',
+    vat='vat',
     documents='documents',
     dashboard_accounts='dashboard-accounts',
     dashboard_documents='dashboard-documents'
@@ -62,6 +63,11 @@ required_datetime = {
 required_boolean = {
     'type': 'boolean',
     'required': True,
+}
+
+required_float = {
+    'type': 'float',
+    'required': True
 }
 
 to_upper = lambda v: v.upper()  # noqa

@@ -74,5 +74,8 @@ _schema.update(base_schema)
 definition = {
     'url': url,
     'schema': _schema,
+    'datasource': {
+        'projection': {'name':1},
+    }
 }
 definition.update(base_def)
