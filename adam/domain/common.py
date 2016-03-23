@@ -13,7 +13,7 @@ from collections import namedtuple
 TopologyKey = namedtuple('TopologyKey', 'countries, companies, ' +
                          'dashboard_accounts, dashboard_documents, ' +
                          'documents, accounts, contacts, vat, ' +
-                         'payment_options, fees')
+                         'payment_methods, fees')
 
 topology = TopologyKey(
     countries='countries',
@@ -21,7 +21,7 @@ topology = TopologyKey(
     contacts='contacts',
     accounts='accounts',
     vat='vat',
-    payment_options='payment-options',
+    payment_methods='payment-methods',
     fees='fees',
     documents='documents',
     dashboard_accounts='dashboard-accounts',

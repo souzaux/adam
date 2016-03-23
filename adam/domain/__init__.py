@@ -14,7 +14,7 @@ import countries
 import documents
 import contacts
 import vat
-import payment_options
+import payment_methods
 import fees
 import user_accounts
 from common import topology
@@ -31,6 +31,6 @@ DOMAIN = {
     topology.dashboard_documents: dashboard_documents.definition,
     topology.documents: documents.definition,
     topology.fees: fees.definition,
-    topology.payment_options: payment_options.definition,
+    topology.payment_methods: payment_methods.definition,
     topology.vat: vat.definition,
 }

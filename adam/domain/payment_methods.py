@@ -11,7 +11,7 @@
 from common import base_def, base_schema, topology, required_string
 
 
-url = topology.payment_options
+url = topology.payment_methods
 
 _modalita_pa = {
     'type': 'dict',
