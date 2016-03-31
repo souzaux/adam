@@ -15,7 +15,7 @@ from vat import definition as vat_definition
 
 url = topology.fees
 
-_schema = {
+schema = {
     'name': required_string,
     'amount': {'type': 'float'},
     'vat': {
@@ -24,10 +24,10 @@ _schema = {
     }
 }
 
-_schema.update(base_schema)
+schema.update(base_schema)
 
 definition = {
     'url': url,
-    'schema': _schema,
+    'schema': schema,
 }
 definition.update(base_def)

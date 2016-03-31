@@ -21,16 +21,18 @@ _modalita_pa = {
     }
 }
 
-_schema = {
+schema = {
     'name': required_string,
     'is_bank_receipt': {'type': 'boolean'},
     'pagamento_pa': _modalita_pa,
 }
 
-_schema.update(base_schema)
+schema.update(base_schema)
 
 definition = {
     'url': url,
-    'schema': _schema,
+    'schema': schema,
 }
 definition.update(base_def)
+print schema
+print base_def

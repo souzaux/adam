@@ -13,19 +13,20 @@ from collections import namedtuple
 TopologyKey = namedtuple('TopologyKey', 'countries, companies, ' +
                          'dashboard_accounts, dashboard_documents, ' +
                          'documents, accounts, contacts, vat, ' +
-                         'payment_methods, fees')
+                         'payment_methods, fees, payments')
 
 topology = TopologyKey(
-    countries='countries',
+    accounts='accounts',
     companies='companies',
     contacts='contacts',
-    accounts='accounts',
-    vat='vat',
-    payment_methods='payment-methods',
-    fees='fees',
-    documents='documents',
+    countries='countries',
     dashboard_accounts='dashboard-accounts',
-    dashboard_documents='dashboard-documents'
+    dashboard_documents='dashboard-documents',
+    documents='documents',
+    fees='fees',
+    payment_methods='payment-methods',
+    payments='payments',
+    vat='vat',
 )
 
 
@@ -124,6 +125,19 @@ contact_minimal = {
     'tax_id_number': {'type': 'tax_id_number'},
 }
 contact_minimal.update(address['schema'])
+
+
+bank = {
+    'type': 'dict',
+    'required': True,
+    'schema': {
+        'name': {'type': 'string', 'required': True},
+        # TODO switch to coerce to_upper when Cerberus 1.0 is released
+        # 'iban': {'type': 'iban', 'coerce': _to_upper},
+        'iban': {'type': 'iban'},
+        'bic_swift': {'type': 'swift'}
+    }
+}
 
 # most resources share the following settings
 base_def = {

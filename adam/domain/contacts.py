@@ -11,7 +11,7 @@
 import copy
 from collections import namedtuple
 from common import base_def, base_schema, key as common_key, topology, \
-    address_ex, required_string, currency, required_boolean, to_upper
+    address_ex, required_string, currency, required_boolean, to_upper, bank
 
 SchemaKey = namedtuple('SchemaKey', 'company, total, date, type')
 key = SchemaKey(
@@ -37,17 +37,6 @@ _is = {
     }
 }
 
-_bank = {
-    'type': 'dict',
-    'schema': {
-        'name': {'type': 'string'},
-        # TODO switch to coerce to_upper when Cerberus 1.0 is released
-        # 'iban': {'type': 'iban', 'coerce': _to_upper},
-        'iban': {'type': 'iban'},
-        'bic_swift': {'type': 'swift'}
-    }
-}
-
 _other_address = copy.deepcopy(address_ex)
 _other_address['schema']['name'] = required_string
 
@@ -62,7 +51,7 @@ _schema = {
     'address': address_ex,
     'currency': currency,
     'is': _is,
-    'bank': _bank,
+    'bank': bank,
     'other_addresses': {
         'type': 'list',
         'schema': _other_address
@@ -74,8 +63,5 @@ _schema.update(base_schema)
 definition = {
     'url': url,
     'schema': _schema,
-    'datasource': {
-        'projection': {'name':1},
-    }
 }
 definition.update(base_def)
