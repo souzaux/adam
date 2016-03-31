@@ -8,7 +8,8 @@
     :copyright: (c) 2016 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from common import base_def, base_schema, topology, required_string
+from common import base_def, base_schema, topology, required_string, \
+    unique_string
 
 
 url = topology.payment_methods
@@ -22,7 +23,7 @@ _modalita_pa = {
 }
 
 schema = {
-    'name': required_string,
+    'name': unique_string,
     'is_bank_receipt': {'type': 'boolean'},
     'pagamento_pa': _modalita_pa,
 }
@@ -34,5 +35,3 @@ definition = {
     'schema': schema,
 }
 definition.update(base_def)
-print schema
-print base_def

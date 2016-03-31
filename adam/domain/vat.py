@@ -8,7 +8,8 @@
     :copyright: (c) 2016 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from common import base_def, base_schema, topology, required_string
+from common import base_def, base_schema, topology, required_string, \
+    unique_string
 
 
 url = topology.vat
@@ -22,7 +23,7 @@ _natura_pa = {
 }
 
 _schema = {
-    'name': required_string,
+    'name': unique_string,
     'code': {'type': 'string', 'required': True, 'unique': True},
     'rate': {'type': 'float'},
     'non_deductible': {'type': 'float'},

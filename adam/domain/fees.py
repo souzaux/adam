@@ -10,13 +10,14 @@
 """
 import copy
 
-from common import base_def, base_schema, topology, required_string
+from common import base_def, base_schema, topology, unique_string
 from vat import definition as vat_definition
+
 
 url = topology.fees
 
 schema = {
-    'name': required_string,
+    'name': unique_string,
     'amount': {'type': 'float'},
     'vat': {
         'type': 'dict',

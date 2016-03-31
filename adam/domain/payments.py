@@ -11,7 +11,7 @@
 import copy
 
 from common import base_def, base_schema, topology, required_string, \
-    required_integer, bank
+    required_integer, bank, unique_string
 from fees import schema as fee_schema
 from payment_methods import schema as payment_schema
 
@@ -31,7 +31,7 @@ payment_bank = copy.deepcopy(bank)
 payment_bank['required'] = False
 
 _schema = {
-    'name': required_string,
+    'name': unique_string,
     'discount': {'type': 'float'},
     'installments_every_number_of_days': {'type': 'integer'},
     'installments': {'type': 'integer'},
