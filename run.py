@@ -35,7 +35,7 @@ app = Eve(auth=None if 'noauth' in sys.argv else BearerAuth,
           settings=settings_file, validator=Validator)
 
 # Attach callbacks event hooks.
-dashboard.init(app)
+#dashboard.init(app)
 
 if __name__ == '__main__':
     app.run(host=host, port=port)

@@ -13,12 +13,11 @@ from collections import namedtuple
 from common import base_def, base_schema, key as common_key, topology, \
     address_ex, required_string, currency, required_boolean, to_upper, bank
 
-SchemaKey = namedtuple('SchemaKey', 'company, total, date, type')
+SchemaKey = namedtuple('SchemaKey', 'company, total, date')
 key = SchemaKey(
     company=common_key.company,
     total=common_key.total,
     date=common_key.date,
-    type=common_key.type
 )
 
 url = topology.contacts
@@ -39,6 +38,8 @@ _is = {
 
 _other_address = copy.deepcopy(address_ex)
 _other_address['schema']['name'] = required_string
+
+bank['required'] = False
 
 _schema = {
     'name': required_string,

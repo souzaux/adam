@@ -14,7 +14,6 @@ TopologyKey = namedtuple('TopologyKey', 'countries, companies, ' +
                          'dashboard_accounts, dashboard_documents, ' +
                          'documents, accounts, contacts, vat, ' +
                          'payment_methods, fees, payments')
-
 topology = TopologyKey(
     accounts='accounts',
     companies='companies',
@@ -31,7 +30,7 @@ topology = TopologyKey(
 
 
 SchemaKey = namedtuple('SchemaKey', 'company, account, amount, date, type, ' +
-                       'total, quantity')
+                       'total, quantity, category, currency')
 key = SchemaKey(
     company='company_id',
     account='account',
@@ -39,7 +38,9 @@ key = SchemaKey(
     date='date',
     type='type',
     total='total',
-    quantity='quantity'
+    quantity='quantity',
+    category='category',
+    currency='currency',
 )
 
 # common data types
@@ -59,6 +60,10 @@ required_string = {
 unique_string = required_string.copy()
 unique_string['unique'] = True
 
+required_objectid = {
+    'type': 'objectid',
+    'required': True,
+}
 required_datetime = {
     'type': 'datetime',
     'required': True
@@ -89,9 +94,9 @@ company = {
 currency = {
     'type': 'dict',
     'schema': {
-        'name': {'type': 'string'},
-        'code': {'type': 'string'},
-        'symbol': {'type': 'string'}
+        'name': required_string,
+        'code': required_string,
+        'symbol': {'type': 'string'},
     }
 }
 
@@ -106,26 +111,22 @@ address = {
     }
 }
 
+contact_details = {
+    'phone': {'type': 'string'},
+    'mobile': {'type': 'string'},
+    'fax': {'type': 'string'},
+    'mail': {'type': 'string'},
+    'pec_mail': {'type': 'string'},
+    'web_site': {'type': 'string'},
+}
+
 address_ex = {
     'type': 'dict',
-    'schema': {
-        'phone': {'type': 'string'},
-        'mobile': {'type': 'string'},
-        'fax': {'type': 'string'},
-        'mail': {'type': 'string'},
-        'pec_mail': {'type': 'string'},
-        'web_site': {'type': 'string'},
-    }
+    'schema': contact_details
 }
 address_ex['schema'].update(address['schema'])
 
-contact_minimal = {
-    'name': required_string,
-    'vat_id_number': {'type': 'vat'},
-    'tax_id_number': {'type': 'tax_id_number'},
-}
-contact_minimal.update(address['schema'])
-
+amount = {'type': 'integer', 'default': 0}
 
 bank = {
     'type': 'dict',
