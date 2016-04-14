@@ -151,8 +151,8 @@ _schema = {
     #'ship_to': delivery_address,
     #'agent': agent_courier,
     #'courier': agent_courier,
-    #'witholding_tax': witholding_tax,
     #'social_security': vat,
+    'witholding_tax': witholding_tax,
     #'items': {
     #    'type': 'list',
     #    'schema': {
