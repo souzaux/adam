@@ -78,13 +78,16 @@ payment = {
 
 vat = {
     'type': 'dict',
+    'required': True,
     'schema': copy.deepcopy(vat_definition['schema'])
 }
 vat['schema']['code']['unique'] = False
+del (vat['schema']['company_id'])
 
 social_security = {
     'type': 'dict',
     'schema':{
+        'name': required_string,
         'rate': {'type': 'float'},
         'amount': amount,
         'vat': vat,
@@ -100,7 +103,7 @@ agent_courier = {
 }
 agent_courier['schema'].update(contact_details)
 
-witholding_tax = {
+withholding_tax = {
     'type': 'dict',
     'schema': {
         'rate': {'type': 'float'},
@@ -151,8 +154,8 @@ _schema = {
     #'ship_to': delivery_address,
     #'agent': agent_courier,
     #'courier': agent_courier,
-    #'social_security': vat,
-    'witholding_tax': witholding_tax,
+    'withholding_tax': withholding_tax,
+    'social_security': social_security,
     #'items': {
     #    'type': 'list',
     #    'schema': {
