@@ -24,7 +24,6 @@ schema = {
         'schema': copy.deepcopy(vat_definition['schema'])
     }
 }
-
 schema.update(base_schema)
 
 definition = {

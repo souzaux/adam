@@ -38,6 +38,35 @@ status = DocumentStatus(
     issued=3,
 )
 
+SocialSecurityCategory = namedtuple(
+    'SocialSecurityCategory', 'TC01, TC02, TC03, TC04, TC05, TC06, TC07, '
+    'TC08, TC09, TC10, TC11, TC12, TC13, TC14, TC15, TC16, TC17, TC18, '
+    'TC19, TC20, TC21, TC22')
+ss_categories = SocialSecurityCategory(
+    TC01=0,
+    TC02=1,
+    TC03=2,
+    TC04=3,
+    TC05=4,
+    TC06=5,
+    TC07=6,
+    TC08=7,
+    TC09=8,
+    TC10=9,
+    TC11=10,
+    TC12=11,
+    TC13=12,
+    TC14=13,
+    TC15=14,
+    TC16=15,
+    TC17=16,
+    TC18=17,
+    TC19=18,
+    TC20=19,
+    TC21=20,
+    TC22=21,
+)
+
 url = topology.documents
 
 billing_address = {
@@ -66,7 +95,7 @@ document_number = {
     'schema': {
         'numeric': required_integer,
         'string': {'type': 'string'},
-        'complete': {'type': required_string}
+        'complete': required_string,
     }
 }
 
@@ -82,18 +111,36 @@ vat = {
     'schema': copy.deepcopy(vat_definition['schema'])
 }
 vat['schema']['code']['unique'] = False
+vat['schema']['name']['unique'] = False
 del (vat['schema']['company_id'])
 
-social_security = {
+social_security_category = {
     'type': 'dict',
-    'schema':{
-        'name': required_string,
-        'rate': {'type': 'float'},
-        'amount': amount,
-        'vat': vat,
+    'required': True,
+    'schema': {
+        'category': {
+            'type': 'integer',
+            'required': True,
+            'allowed': ss_categories._asdict().values(),
+        },
+        'description': {'type': 'string'}
     }
 }
 
+social_security = {
+    'type': 'list',
+    'schema': {
+        'type': 'dict',
+        'schema': {
+            'rate': {'type': 'float'},
+            'taxable': amount,
+            'amount': amount,
+            'withholding': {'type': 'boolean'},
+            'vat': vat,
+            'category': social_security_category,
+        }
+    }
+}
 agent_courier = {
     'type': 'dict',
     'schema': {
@@ -144,9 +191,9 @@ _schema = {
     'status': status,
     common_key.currency: currency,
     'reason': required_string,
-    #'number': document_number,
-    #'payment': payment,
-    #'bill_to': billing_address,
+    'number': document_number,
+    'payment': payment,
+    'bill_to': billing_address,
     #common_key.total: {
     #    'type': 'integer',
     #    'default': 0,
