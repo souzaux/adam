@@ -198,14 +198,14 @@ _schema = {
     'bank': bank,
     'bill_to': billing_address,
     'ship_to': shipping_address,
+    'agent': agent_courier,
+    'withholding_tax': withholding_tax,
+    'social_security': social_security,
+    'rebate': {'type': 'integer', 'default': 0},
     #common_key.total: {
     #    'type': 'integer',
     #    'default': 0,
     #},             # total amount
-    'agent': agent_courier,
-    #'courier': agent_courier,
-    'withholding_tax': withholding_tax,
-    'social_security': social_security,
     #'items': {
     #    'type': 'list',
     #    'schema': {
