@@ -14,7 +14,7 @@ from collections import namedtuple
 from common import base_def, base_schema, required_datetime, \
     key as common_key, required_string, topology, address, required_objectid, \
     required_integer, currency, address_ex, contact_details, required_boolean,\
-    amount
+    amount, bank
 from payments import definition as payment_definition
 from vat import definition as vat_definition
 
@@ -195,6 +195,7 @@ _schema = {
     'expiration_date': {'type': 'datetime'},
     'base_date_for_payments': {'type': 'datetime'},
     'payment': payment,
+    'bank': bank,
     'bill_to': billing_address,
     'ship_to': shipping_address,
     #common_key.total: {
