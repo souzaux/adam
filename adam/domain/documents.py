@@ -81,13 +81,13 @@ billing_address = {
 }
 billing_address['schema'].update(address['schema'])
 
-delivery_address = {
+shipping_address = {
     'type': 'dict',
     'schema': {
         'name': {'type': 'string'}
     }
 }
-delivery_address['schema'].update(address_ex['schema'])
+shipping_address['schema'].update(address_ex['schema'])
 
 document_number = {
     'type': 'dict',
@@ -192,14 +192,16 @@ _schema = {
     common_key.currency: currency,
     'reason': required_string,
     'number': document_number,
+    'expiration_date': {'type': 'datetime'},
+    'base_date_for_payments': {'type': 'datetime'},
     'payment': payment,
     'bill_to': billing_address,
+    'ship_to': shipping_address,
     #common_key.total: {
     #    'type': 'integer',
     #    'default': 0,
     #},             # total amount
-    #'ship_to': delivery_address,
-    #'agent': agent_courier,
+    'agent': agent_courier,
     #'courier': agent_courier,
     'withholding_tax': withholding_tax,
     'social_security': social_security,
