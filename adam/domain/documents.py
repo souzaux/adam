@@ -67,9 +67,24 @@ ss_categories = SocialSecurityCategory(
     TC22=21,
 )
 
+DocumentTransportMode = namedtuple(
+    'DocumentTransportMode', 'sender, recipient, courier')
+transport_mode = DocumentTransportMode(
+    sender=1,
+    recipient=2,
+    courier=3,
+)
+
+DocumentShippingTerms = namedtuple(
+    'DocumentShippingTerms', 'delivery_duty_paid, ex_works')
+shipping_terms = DocumentShippingTerms(
+    delivery_duty_paid=1,
+    ex_works=2,
+)
+
 url = topology.documents
 
-billing_address = {
+bill_to = {
     'type': 'dict',
     'required': True,
     'schema': {
@@ -79,15 +94,15 @@ billing_address = {
         'tax_id_number': {'type': 'tax_id_number'},
     }
 }
-billing_address['schema'].update(address['schema'])
+bill_to['schema'].update(address['schema'])
 
-shipping_address = {
+ship_to = {
     'type': 'dict',
     'schema': {
         'name': {'type': 'string'}
     }
 }
-shipping_address['schema'].update(address_ex['schema'])
+ship_to['schema'].update(address_ex['schema'])
 
 document_number = {
     'type': 'dict',
@@ -113,6 +128,60 @@ vat = {
 vat['schema']['code']['unique'] = False
 vat['schema']['name']['unique'] = False
 del (vat['schema']['company_id'])
+
+agent_courier = {
+    'type': 'dict',
+    'schema': {
+        'contact_id': required_objectid,
+        'name': required_string,
+    }
+}
+agent_courier['schema'].update(contact_details)
+
+
+shipping = {
+    'type': 'dict',
+    'schema': {
+        'volume': {'type': 'integer'},
+        'unit_of_measure': {'type': 'string'},
+        'weight': {'type': 'float'},
+        'appearance': {'type': 'string'},
+        'date': {'type': 'datetime'},
+        'transport_mode': {
+            'type': 'dict',
+            'required': True,
+            'schema': {
+                'code': {
+                    'type': 'integer',
+                    'required': True,
+                    'allowed': transport_mode._asdict().values(),
+                },
+                'description': {'type': 'string'}
+            }
+        },
+        'terms': {
+            'type': 'dict',
+            'required': True,
+            'schema': {
+                'code': {
+                    'type': 'integer',
+                    'required': True,
+                    'allowed': shipping_terms._asdict().values(),
+                },
+                'description': {'type': 'string'}
+            }
+        },
+        'driver': {
+            'type': 'dict',
+            'schema': {
+                'name': required_string,
+                'license_id': {'type': 'string'},
+                'plate_id': {'type': 'string'},
+            },
+        },
+        'courier': agent_courier,
+    }
+}
 
 social_security_category = {
     'type': 'dict',
@@ -141,14 +210,6 @@ social_security = {
         }
     }
 }
-agent_courier = {
-    'type': 'dict',
-    'schema': {
-        'contact_id': required_objectid,
-        'name': required_string,
-    }
-}
-agent_courier['schema'].update(contact_details)
 
 withholding_tax = {
     'type': 'dict',
@@ -196,12 +257,13 @@ _schema = {
     'base_date_for_payments': {'type': 'datetime'},
     'payment': payment,
     'bank': bank,
-    'bill_to': billing_address,
-    'ship_to': shipping_address,
+    'bill_to': bill_to,
+    'ship_to': ship_to,
     'agent': agent_courier,
     'withholding_tax': withholding_tax,
     'social_security': social_security,
     'rebate': {'type': 'integer', 'default': 0},
+    'shipping': shipping,
     #common_key.total: {
     #    'type': 'integer',
     #    'default': 0,
