@@ -82,6 +82,14 @@ shipping_terms = DocumentShippingTerms(
     ex_works=2,
 )
 
+DocumentVariation = namedtuple(
+    'DocumentVariation', 'discount, payment_discount, raise_')
+variations = DocumentVariation(
+    discount=1,
+    payment_discount=2,
+    raise_=3,
+)
+
 url = topology.documents
 
 bill_to = {
@@ -211,6 +219,31 @@ social_security = {
     }
 }
 
+variation_category = {
+    'type': 'dict',
+    'required': True,
+    'schema': {
+        'category': {
+            'type': 'integer',
+            'required': True,
+            'allowed': variations._asdict().values(),
+        },
+        'description': {'type': 'string'}
+    }
+}
+
+variation = {
+    'type': 'list',
+    'schema': {
+        'type': 'dict',
+        'schema': {
+            'rate': {'type': 'float'},
+            'amount': amount,
+            'category': variation_category,
+        }
+    }
+}
+
 withholding_tax = {
     'type': 'dict',
     'schema': {
@@ -262,6 +295,7 @@ _schema = {
     'agent': agent_courier,
     'withholding_tax': withholding_tax,
     'social_security': social_security,
+    'variation': variation,
     'rebate': {'type': 'integer', 'default': 0},
     'shipping': shipping,
     #common_key.total: {
