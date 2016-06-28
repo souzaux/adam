@@ -125,7 +125,13 @@ document_number = {
 payment = {
     'type': 'dict',
     'required': True,
-    'schema': payment_definition['schema']
+    'schema': {
+        'current': {
+            'type': 'dict',
+            'schema': payment_definition['schema'],
+        },
+        'base_date_for_payments': {'type': 'datetime'},
+    }
 }
 
 vat = {
@@ -135,7 +141,6 @@ vat = {
 }
 vat['schema']['code']['unique'] = False
 vat['schema']['name']['unique'] = False
-del (vat['schema']['company_id'])
 
 agent_courier = {
     'type': 'dict',
@@ -287,7 +292,6 @@ _schema = {
     'reason': required_string,
     'number': document_number,
     'expiration_date': {'type': 'datetime'},
-    'base_date_for_payments': {'type': 'datetime'},
     'payment': payment,
     'bank': bank,
     'bill_to': bill_to,
