@@ -313,6 +313,7 @@ _schema = {
     'variation': variation,
     'rebate': {'type': 'integer', 'default': 0},
     'shipping': shipping,
+    'notes': {'type': 'string'}
     #common_key.total: {
     #    'type': 'integer',
     #    'default': 0,
