@@ -295,6 +295,19 @@ status = {
     }
 }
 
+fees = {
+    'type': 'list',
+    'schema': {
+        'type': 'dict',
+        'schema': {
+            'name': required_string,
+            'amount': {'type': 'integer', 'default': 0},
+            'is_from_payment': {'type': 'boolean', 'required': True},
+            'vat': vat,
+        }
+    }
+}
+
 _schema = {
     common_key.date: required_datetime,             # docment date
     common_key.category: category,
@@ -309,25 +322,16 @@ _schema = {
     'ship_to': ship_to,
     'agent': agent_courier,
     'withholding_tax': withholding_tax,
-    'social_security': social_security,
-    'variation': variation,
     'rebate': {'type': 'integer', 'default': 0},
     'shipping': shipping,
-    'notes': {'type': 'string'}
+    'notes': {'type': 'string'},
+    'social_security_collection': social_security,
+    'variation_collection': variation,
+    'fee_collection': fees,
     #common_key.total: {
     #    'type': 'integer',
     #    'default': 0,
     #},             # total amount
-    #'items': {
-    #    'type': 'list',
-    #    'schema': {
-    #        'type': 'dict',
-    #        'schema': {
-    #            'sku': {'type': 'string'},
-    #            'description': required_string
-    #        }
-    #    }
-    #}
 }
 _schema.update(base_schema)
 
