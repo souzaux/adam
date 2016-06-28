@@ -134,6 +134,17 @@ payment = {
     }
 }
 
+current = copy.deepcopy(currency)
+current['required'] = True
+
+document_currency = {
+    'type': 'dict',
+    'required': True,
+    'schema': {
+        'current': current,
+        'exchange_rate': {'type': 'float', 'required': True},
+    }
+}
 vat = {
     'type': 'dict',
     'required': True,
@@ -288,7 +299,7 @@ _schema = {
     common_key.date: required_datetime,             # docment date
     common_key.category: category,
     'status': status,
-    common_key.currency: currency,
+    common_key.currency: document_currency,
     'reason': required_string,
     'number': document_number,
     'expiration_date': {'type': 'datetime'},
