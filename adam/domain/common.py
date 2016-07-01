@@ -140,6 +140,39 @@ bank = {
     }
 }
 
+DocumentVariation = namedtuple(
+    'DocumentVariation', 'discount, payment_discount, raise_')
+variations = DocumentVariation(
+    discount=1,
+    payment_discount=2,
+    raise_=3,
+)
+
+variation_category = {
+    'type': 'dict',
+    'required': True,
+    'schema': {
+        'category': {
+            'type': 'integer',
+            'required': True,
+            'allowed': variations._asdict().values(),
+        },
+        'description': {'type': 'string'}
+    }
+}
+
+variation = {
+    'type': 'list',
+    'schema': {
+        'type': 'dict',
+        'schema': {
+            'rate': {'type': 'float'},
+            'amount': amount,
+            'category': variation_category,
+        }
+    }
+}
+
 # most resources share the following settings
 base_def = {
     'auth_field': key.account

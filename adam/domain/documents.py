@@ -14,9 +14,10 @@ from collections import namedtuple
 from common import base_def, base_schema, required_datetime, \
     key as common_key, required_string, topology, address, required_objectid, \
     required_integer, currency, address_ex, contact_details, required_boolean,\
-    amount, bank
+    amount, bank, variation
 from payments import definition as payment_definition
-from vat import definition as vat_definition
+from vat import vat_field, agent_courier
+from document_item import item
 
 
 DocumentCategory = namedtuple(
@@ -82,14 +83,6 @@ shipping_terms = DocumentShippingTerms(
     ex_works=2,
 )
 
-DocumentVariation = namedtuple(
-    'DocumentVariation', 'discount, payment_discount, raise_')
-variations = DocumentVariation(
-    discount=1,
-    payment_discount=2,
-    raise_=3,
-)
-
 url = topology.documents
 
 bill_to = {
@@ -145,21 +138,7 @@ document_currency = {
         'exchange_rate': {'type': 'float', 'required': True},
     }
 }
-vat = {
-    'type': 'dict',
-    'required': True,
-    'schema': copy.deepcopy(vat_definition['schema'])
-}
-vat['schema']['code']['unique'] = False
-vat['schema']['name']['unique'] = False
 
-agent_courier = {
-    'type': 'dict',
-    'schema': {
-        'contact_id': required_objectid,
-        'name': required_string,
-    }
-}
 agent_courier['schema'].update(contact_details)
 
 
@@ -229,33 +208,8 @@ social_security = {
             'taxable': amount,
             'amount': amount,
             'withholding': {'type': 'boolean'},
-            'vat': vat,
+            'vat': vat_field,
             'category': social_security_category,
-        }
-    }
-}
-
-variation_category = {
-    'type': 'dict',
-    'required': True,
-    'schema': {
-        'category': {
-            'type': 'integer',
-            'required': True,
-            'allowed': variations._asdict().values(),
-        },
-        'description': {'type': 'string'}
-    }
-}
-
-variation = {
-    'type': 'list',
-    'schema': {
-        'type': 'dict',
-        'schema': {
-            'rate': {'type': 'float'},
-            'amount': amount,
-            'category': variation_category,
         }
     }
 }
@@ -303,9 +257,14 @@ fees = {
             'name': required_string,
             'amount': {'type': 'integer', 'default': 0},
             'is_from_payment': {'type': 'boolean', 'required': True},
-            'vat': vat,
+            'vat': vat_field,
         }
     }
+}
+
+items = {
+    'type': 'list',
+    'schema': item,
 }
 
 _schema = {
@@ -328,6 +287,7 @@ _schema = {
     'social_security_collection': social_security,
     'variation_collection': variation,
     'fee_collection': fees,
+    'item_collection': items,
     #common_key.total: {
     #    'type': 'integer',
     #    'default': 0,
