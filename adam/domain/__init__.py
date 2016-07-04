@@ -18,6 +18,7 @@ import payment_methods
 import payments
 import user_accounts
 import vat
+import warehouses
 from common import topology
 from dashboard import dashboard_accounts, dashboard_documents
 
@@ -35,4 +36,5 @@ DOMAIN = {
     topology.payment_methods: payment_methods.definition,
     topology.payments: payments.definition,
     topology.vat: vat.definition,
+    topology.warehouses: warehouses.definition,
 }
