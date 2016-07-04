@@ -8,8 +8,11 @@
     :copyright: (c) 2016 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
-from vat import vat_field
+import copy
+
 from common import variation
+from vat import vat_field
+from warehouses import warehouse_field
 
 
 detail = {
@@ -54,6 +57,7 @@ item = {
         'area_manager_commission': {'type': 'float'},
         'detail': detail,
         'vat': vat_field,
+        'warehouse': warehouse_field,
         'variation_collection': variation,
     }
 }

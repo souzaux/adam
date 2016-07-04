@@ -8,7 +8,10 @@
     :copyright: (c) 2016 by Nicola Iarocci and CIR2000.
     :license: BSD, see LICENSE for more details.
 """
+import copy
+
 from common import base_def, base_schema, topology, unique_string, address
+
 
 url = topology.warehouses
 
@@ -18,6 +21,13 @@ schema = {
     'address': address,
 }
 schema.update(base_schema)
+
+warehouse_field = {
+    'type': 'dict',
+    'required': True,
+    'schema': copy.deepcopy(schema)
+}
+warehouse_field['schema']['name']['unique'] = False
 
 definition = {
     'url': url,
