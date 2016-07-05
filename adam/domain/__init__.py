@@ -19,6 +19,7 @@ import payments
 import user_accounts
 import vat
 import warehouses
+import sizes
 from common import topology
 from dashboard import dashboard_accounts, dashboard_documents
 
@@ -37,4 +38,5 @@ DOMAIN = {
     topology.payments: payments.definition,
     topology.vat: vat.definition,
     topology.warehouses: warehouses.definition,
+    topology.sizes: sizes.definition,
 }

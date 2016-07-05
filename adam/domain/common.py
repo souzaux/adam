@@ -10,10 +10,12 @@
 """
 from collections import namedtuple
 
+
 TopologyKey = namedtuple('TopologyKey', 'countries, companies, ' +
                          'dashboard_accounts, dashboard_documents, ' +
                          'documents, accounts, contacts, vat, ' +
-                         'payment_methods, fees, payments, warehouses')
+                         'payment_methods, fees, payments, warehouses, ' +
+                         'sizes')
 topology = TopologyKey(
     accounts='accounts',
     companies='companies',
@@ -27,6 +29,7 @@ topology = TopologyKey(
     payments='payments',
     vat='vat',
     warehouses='warehouses',
+    sizes='sizes',
 )
 
 
