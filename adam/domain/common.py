@@ -15,7 +15,7 @@ TopologyKey = namedtuple('TopologyKey', 'countries, companies, ' +
                          'dashboard_accounts, dashboard_documents, ' +
                          'documents, accounts, contacts, vat, ' +
                          'payment_methods, fees, payments, warehouses, ' +
-                         'sizes')
+                         'sizes, price_lists')
 topology = TopologyKey(
     accounts='accounts',
     companies='companies',
@@ -30,6 +30,7 @@ topology = TopologyKey(
     vat='vat',
     warehouses='warehouses',
     sizes='sizes',
+    price_lists='price-lists',
 )
 
 

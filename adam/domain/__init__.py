@@ -20,6 +20,7 @@ import user_accounts
 import vat
 import warehouses
 import sizes
+import price_lists
 from common import topology
 from dashboard import dashboard_accounts, dashboard_documents
 
@@ -39,4 +40,5 @@ DOMAIN = {
     topology.vat: vat.definition,
     topology.warehouses: warehouses.definition,
     topology.sizes: sizes.definition,
+    topology.price_lists: price_lists.definition
 }
