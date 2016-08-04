@@ -49,11 +49,3 @@ vat_field = {
 }
 vat_field['schema']['code']['unique'] = False
 vat_field['schema']['name']['unique'] = False
-
-agent_courier = {
-    'type': 'dict',
-    'schema': {
-        'contact_id': required_objectid,
-        'name': required_string,
-    }
-}

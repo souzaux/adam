@@ -16,7 +16,7 @@ from common import base_def, base_schema, required_datetime, \
     required_integer, currency, address_ex, contact_details, required_boolean,\
     amount, bank, variation
 from payments import definition as payment_definition
-from vat import vat_field, agent_courier
+from vat import vat_field
 from document_item import item
 
 
@@ -139,6 +139,14 @@ document_currency = {
     }
 }
 
+
+agent_courier = {
+    'type': 'dict',
+    'schema': {
+        'contact_id': required_objectid,
+        'name': required_string,
+    }
+}
 agent_courier['schema'].update(contact_details)
 
 
